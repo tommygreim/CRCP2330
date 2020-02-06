@@ -1,0 +1,8 @@
+CHIP OneBitAddition {
+    IN a, b;
+    OUT out1, out10;
+
+    PARTS:
+    And(a=a, b=b, out=out10);
+    Xor(a=a, b=b, out=out1);
+}
