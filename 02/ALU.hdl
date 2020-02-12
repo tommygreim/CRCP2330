@@ -42,5 +42,61 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
-}
+    // Put you code here:
+
+    //Zero the X
+    Not16(in=x, out=notX);
+    Inc16(in=notX, out=negX);
+    Add16(a=x, b=negX, out= zero);
+    Mux16(a=x, b=zero, sel=zx, out=pzX);
+
+    //Zero the Y
+    Mux16(a=y, b=zero, sel=zy, out=pzY);
+
+
+    //Negate the X
+    Not16(in=pzX, out=notPZX);
+    Mux16(a=pzX, b=notPZX, sel=nx, out=postNX);
+
+    //Negate the Y
+    Not16(in=pzY, out=notPZY);
+    Mux16(a=pzY, b=notPZY, sel=ny, out=postNY);
+
+    //x + y OR x & y
+    Add16(a=postNX, b=postNY, out=sum);
+    And16(a=postNX, b=postNY, out=bitAnd);
+    Mux16(a=bitAnd, b=sum, sel=f, out= preOut);
+
+    //Negate the Out
+    Not16(in=preOut, out= notOut);
+    Mux16(a=preOut, b=notOut, sel=no, out=out);
+    Mux16(a=preOut, b=notOut, sel=no, out=outCopy);
+
+    //zr
+    Not16(in=outCopy, out=notOutCopy);
+    Not16(in=zero, out=ones);
+    And16(a=notOutCopy, b=ones, out[0]=zr0, out[1]=zr1, out[2]=zr2, out[3]=zr3, out[4]=zr4, out[5]=zr5, out[6]=zr6, out[0]=zr7, out[0]=zr8, out[0]=zr9, out[10]=zr10, out[11]=zr11, out[12]=zr12, out[13]=zr13, out[14]=zr14, out[15]=zr15);
+    And(a=zr0, b=zr1, out=zr01);
+    And(a=zr2, b= zr3, out=zr23);
+    And(a=zr4, b= zr5, out=zr45);
+    And(a=zr6, b= zr7, out=zr67);
+    And(a=zr8, b= zr9, out=zr89);
+    And(a=zr10, b= zr11, out=zr1011);
+    And(a=zr11, b= zr13, out=zr1213);
+    And(a=zr12, b= zr15, out=zr1415);
+
+    And(a=zr01, b=zr23, out=zr0123);
+    And(a=zr45, b=zr67, out=zr4567);
+    And(a=zr89, b=zr1011, out=zr891011);
+    And(a=zr1213, b=zr1415, out=zr12131415);
+
+    And(a=zr0123, b=zr4567, out=zr1stHalf);
+    And(a=zr891011, b=zr12131415, out=zr2ndHalf);
+
+    And(a=zr1stHalf, b=zr2ndHalf, out=zr);
+
+    //ng
+    Not16(in=outCopy, out[15]= notSigBit);
+    Not(in=notSigBit, out=ng);
+
+}    
