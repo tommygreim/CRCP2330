@@ -7,3 +7,4 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
+LOAD R1, #5;
