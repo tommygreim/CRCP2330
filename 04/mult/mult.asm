@@ -7,24 +7,24 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
-		@3
-		M=0
-		@2
+		@R3		//Counter = 0
+		M=1
+		@R2		//Sum = 0
 		M=0
 
  (LOOP)
- 		@3
- 		D=M
- 		@1
- 		D=D-A
+ 		@R3
+ 		D=M 	//Counter into Data
+ 		@R1		
+ 		D=D-M	//Data = Counter - Term2
  		@END
  		D;JGT
- 		@1
- 		D=A
- 		@2
- 		M=D+M
- 		@3
- 		M=M+1
+ 		@R0		
+ 		D=M 	//Data = Term1
+ 		@R2
+ 		M=D+M 	//Sum = Term1 + Sum(current)
+ 		@R3
+ 		M=M+1	//Increment Counter
  		@LOOP
  		0;JMP
  (END)	
