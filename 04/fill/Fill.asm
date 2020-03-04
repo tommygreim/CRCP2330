@@ -12,29 +12,49 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+(KEYCHECK)	
+ 			@KBD
+ 			D=M
+ 			@SETBLACK
+ 			D;JNE
+	 		@SETWHITE
+	 		0;JMP
+(SETBLACK)
+			@R4
+			M=-1
+			@START
+			0;JMP
+(SETWHITE)
+			@R4
+			M=0
+			@START
+			0;JMP
+(START)
 			@R0		//Counter
 			M=0
-			@8190
+			@8191
 			D=A
 			@R1		//Number of words on screen
 			M=D
- (ROWS)
+ (FILL)
 	 		@R1
 	 		D=M
 	 		@R0
 	 		D=M-D
-	 		@END
+	 		@KEYCHECK
 	 		D;JGT
 	 		@R0
 	 		D=M
 			@SCREEN
-			A=A+D
-			M=-1
+			D=A+D
+			@R3
+			M=D
+			@R4
+			D=M
+			@R3
+			A=M
+			M=D
 			@R0
 			M = M + 1
-			@ROWS
+			@FILL
 			0;JMP
-
- (END)	
-	 		@END
-	 		0;JMP
