@@ -14,25 +14,21 @@
 // Put your code here.
 			@RO
 			M=0
+			@131072
+			D=A
 			@R1
-			M=131072
+			M=D
  (ROWS)
 	 		@R0
 	 		D=M
-	 		@R2
+	 		@R1
 	 		D=D-M
 	 		@END
 	 		D;JGT
-	 		@R4
-	 		M=0
- (COLS)
- 			@R4
- 			D=M
- 			@R1
- 			D=D-M
- 			@ROWS
- 			D;JGT
+	 		@R0
+	 		D=M
 			@SCREEN
+			A=A+D
 			M=1
 			@R0
 			M = M + 1
