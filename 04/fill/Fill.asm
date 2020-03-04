@@ -12,24 +12,24 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
-			@RO
+			@R0		//Counter
 			M=0
-			@131072
+			@8190
 			D=A
-			@R1
+			@R1		//Number of words on screen
 			M=D
  (ROWS)
-	 		@R0
-	 		D=M
 	 		@R1
-	 		D=D-M
+	 		D=M
+	 		@R0
+	 		D=M-D
 	 		@END
 	 		D;JGT
 	 		@R0
 	 		D=M
 			@SCREEN
 			A=A+D
-			M=1
+			M=-1
 			@R0
 			M = M + 1
 			@ROWS
