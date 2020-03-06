@@ -1,5 +1,5 @@
 // This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
+// and the book "The Elements of Computing Systems"	
 // by Nisan and Schocken, MIT Press.
 // File name: projects/04/Fill.asm
 
@@ -15,9 +15,9 @@
 (KEYCHECK)	
  			@KBD
  			D=M
- 			@SETBLACK
+ 			@SETWHITE
  			D;JNE
-	 		@SETWHITE
+	 		@SETBLACK
 	 		0;JMP
 (SETBLACK)
 			@R4
