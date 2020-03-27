@@ -42,5 +42,11 @@ CHIP CPU {
     // Put your code here:
     //if instruction[15] == 0, change address
     Not(in=instruction[15], out=doAInstruction);
+    Not(in=instruction[15], out=writeM);
+    ALU(x=inD, y=inM, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut1);
+    ALU(x=inD, y=theAddress, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut1);
+    Memory(load=instruction[15], address=instruction[0..14], in=instruction, out=outM);
+
+
 
 }
