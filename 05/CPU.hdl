@@ -40,4 +40,7 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+    //if instruction[15] == 0, change address
+    Not(in=instruction[15], out=doAInstruction);
+
 }
