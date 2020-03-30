@@ -40,24 +40,30 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
-    //if instruction[15] == 0, change address
-    //Not(in=instruction[15], out=doAInstruction);
-    //Not(in=instruction[15], out=writeM);
-    //ALU(x=inD, y=inM, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut1);
-    //ALU(x=inD, y=theAddress, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut1);
-    //Memory(load=instruction[15], address=instruction[0..14], in=instruction, out=outM);
 
     //A Register, D Register, PC, ALU
-    Not(in=instruction[15], out=doA);
-    Mux(sel=instruction[15], a=true, b=storeA, out=changeA);
+    Mux(sel=instruction[15], a=true, b=storeAAAA, out=changeA);
     Mux16(sel=instruction[15], a[0..14]=instruction[0..14], a[15]=false, b=aluOut, out[0..14]=aInput);
     //A Register
     Register(in[15]=instruction[14], in[0..14]=aInput, load=changeA, out=theAddress, out[0..14]=addressM);
+
     Mux16(a=theAddress, b=inM, sel=instruction[12], out=DorA);
     ALU(x=inD, y=DorA, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut);
     DMux8Way(in=true, sel=instruction[3..5], b=storeM, c=storeD, d=storeMD, e=storeA, f=storeAM, g=storeAD, h=storeAMD);
 
+    Or(a=storeA, b=storeAM, out=storeAA);
+    Or(a=storeA, b=storeAD, out=storeAAA);
+    Or(a=storeA, b=storeAMD, out=storeAAAA);
 
+    Or(a=storeM, b=storeAM, out=storeMM);
+    Or(a=storeM, b=storeMD, out=storeMMM);
+    Or(a=storeM, b=storeAMD, out=storeMMMM);
 
+    Or(a=storeD, b=storeAD, out=storeDD);
+    Or(a=storeD, b=storeMD, out=storeDDD);
+    Or(a=storeD, b=storeAMD, out=storeDDDD);
+
+    //D Register
+    Register(in=aluOut, load=storeD, out=inD);
 
 }
