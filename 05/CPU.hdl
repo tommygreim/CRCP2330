@@ -49,8 +49,13 @@ CHIP CPU {
 
     //A Register, D Register, PC, ALU
     Not(in=instruction[15], out=doA);
+    Mux(sel=instruction[15], a=true, b=storeA, out=changeA);
+    Mux16(sel=instruction[15], a[0..14]=instruction[0..14], a[15]=false, b=aluOut, out[0..14]=aInput);
     //A Register
-    Register(in[15]=false, in[0..14]=instruction[0..14], load=doA, out[0..14]=addressM);
+    Register(in[15]=instruction[14], in[0..14]=aInput, load=changeA, out=theAddress, out[0..14]=addressM);
+    Mux16(a=theAddress, b=inM, sel=instruction[12], out=DorA);
+    ALU(x=inD, y=DorA, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut);
+    DMux8Way(in=true, sel=instruction[3..5], b=storeM, c=storeD, d=storeMD, e=storeA, f=storeAM, g=storeAD, h=storeAMD);
 
 
 
