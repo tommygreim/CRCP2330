@@ -44,10 +44,10 @@ CHIP CPU {
     //A Register, D Register, PC, ALU
     Not(in=instruction[15], out=doACom);
     Or(a=doACom, b=storeAAAA, out=changeA);
-    Mux16(sel=instruction[15], a[0..14]=instruction[0..14], a[15]=false, b=aluOut, out[0..14]=aInput);
+    Mux16(sel=instruction[15], a=instruction, b=aluOut, out=aInput);
 
     //A Register
-    ARegister(in[0..14]=aInput, load=changeA, out=theAddress, out[0..14]=addressM);
+    ARegister(in=aInput, load=changeA, out=theAddress, out[0..14]=addressM);
 
     Mux16(a=theAddress, b=inM, sel=instruction[12], out=AorM);
     ALU(x=inD, y=AorM, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut, out[14]=jlt, out[0..7]=halfOut1, out[8..14]=halfOut2);
@@ -73,12 +73,11 @@ CHIP CPU {
 
     //Output M
     Mux16(sel=storeMMMM, a=inM, b=aluOut, out=tempM);
-    Mux16(sel=instruction[15], a=inM, b=tempM, out[0..14]=outM[0..14]);
-    Not(in=jge, out=outM[15]);
+    Mux16(sel=instruction[15], a=inM, b=tempM, out=outM);
 
 
     Or8Way(in=halfOut1, out=notZero1);
-    Or8Way(in[0..6]=halfOut2, in[7]=false, out=notZero2);
+    Or8Way(in[0..6]=halfOut2, out=notZero2);
     Or(a=notZero1, b=notZero2, out=notZero, out=jne);
     Not(in=notZero, out=jeq);
     Not(in=jlt, out=jge);
