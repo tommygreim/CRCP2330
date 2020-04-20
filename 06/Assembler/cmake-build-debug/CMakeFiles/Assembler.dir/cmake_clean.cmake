@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Assembler.dir/main.cpp.o"
+  "Assembler.exe"
+  "Assembler.exe.manifest"
   "Assembler.pdb"
-  "Assembler"
+  "CMakeFiles/Assembler.dir/main.cpp.obj"
+  "libAssembler.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/mnt/g/Documents/College/Sophmore/nand2tetris/CRCP2330/06/Assembler/main.cpp
+G:/Documents/College/Sophmore/nand2tetris/CRCP2330/06/Assembler/main.cpp
 iostream
+-
+fstream
+-
+vector
+-
+string
+-
+list
 -
 
