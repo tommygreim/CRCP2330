@@ -40,4 +40,65 @@ CHIP CPU {
 
     PARTS:
     // Put your code here:
+
+    //A Register, D Register, PC, ALU
+    Not(in=instruction[15], out=doACom);
+    Or(a=doACom, b=storeAAAA, out=changeA);
+    Mux16(sel=instruction[15], a=instruction, b=aluOut, out=aInput);
+
+    //A Register
+    ARegister(in=aInput, load=changeA, out=theAddress, out[0..14]=addressM);
+
+    Mux16(a=theAddress, b=inM, sel=instruction[12], out=AorM);
+    ALU(x=inD, y=AorM, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluOut, out[14]=jlt, out[0..7]=halfOut1, out[8..14]=halfOut2);
+    DMux8Way(in=true, sel=instruction[3..5], b=storeM, c=storeD, d=storeMD, e=storeA, f=storeAM, g=storeAD, h=storeAMD);
+
+    Or(a=storeA, b=storeAM, out=storeAA);
+    Or(a=storeAA, b=storeAD, out=storeAAA);
+    Or(a=storeAAA, b=storeAMD, out=storeAAAA);
+
+    Or(a=storeM, b=storeAM, out=storeMM);
+    Or(a=storeMM, b=storeMD, out=storeMMM);
+    Or(a=storeMMM, b=storeAMD, out=storeMMMM);
+    And(a=storeMMMM, b=instruction[15], out=writeM);
+
+    Or(a=storeD, b=storeAD, out=storeDD);
+    Or(a=storeDD, b=storeMD, out=storeDDD);
+    Or(a=storeDDD, b=storeAMD, out=storeDDDD);
+    And(a=storeDDDD, b=instruction[15], out=DtoReg);
+
+    //D Register
+    Or16(a=aluOut, b=false, out[0..14]=aluOut15);
+    DRegister(in=aluOut, in[15]=true, load=DtoReg, out=inD);
+
+    //Output M
+    Mux16(sel=storeMMMM, a=inM, b=aluOut, out=tempM);
+    Mux16(sel=instruction[15], a=inM, b=tempM, out=outM);
+
+
+    Or8Way(in=halfOut1, out=notZero1);
+    Or8Way(in[0..6]=halfOut2, out=notZero2);
+    Or(a=notZero1, b=notZero2, out=notZero, out=jne);
+    Not(in=notZero, out=jeq);
+    Not(in=jlt, out=jge);
+    And(a=jge, b=notZero, out=jgt);
+    Or(a=jlt, b=jeq, out=jle);
+    Not(in=false, out=jmp);
+
+    //Don't have a non-16bit version of Mux8Way, so I did in the janky way.
+    Mux(a=false, b=jgt, sel=instruction[0], out=ab);
+    Mux(a=jeq, b=jge, sel=instruction[0], out=cd);
+    Mux(a=jlt, b=jne, sel=instruction[0], out=ef);
+    Mux(a=jle, b=jmp, sel=instruction[0], out=gh);
+    Mux(a=ab, b=cd, sel=instruction[1], out=abcd);
+    Mux(a=ef, b=gh, sel=instruction[1], out=efgh);
+    Mux(a=abcd, b=efgh, sel=instruction[2], out=mightJump);
+    //Mux8Way16(sel=instruction[0..2], a[0]=false, b[0]=jgt, c[0]=jeq, d[0]=jge, e[0]=jlt, f[0]=jne, g[0]=jle, h[0]=jmp, out[0]=mightJump);
+    And(a=mightJump, b=instruction[15], out=willJump);
+    Not(in=willJump, out=wontJump);
+
+    PC(in=theAddress, load=willJump, inc=true, reset=reset, out[0..14]=pc);
+
+    //DMux8Way(in=true, sel=instruction[0..2], b=jgt, c=jeq, d=jge, e=jlt, f=jne, g=jle, h=jmp);
+    
 }
