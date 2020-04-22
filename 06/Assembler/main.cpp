@@ -3,8 +3,12 @@
 #include <vector>
 #include <string>
 #include <list>
+#include <bitset>
 
 using namespace std;
+
+void aInstruction(string& input);
+void cInstruction(string& input);
 
 int main(int argc, char** argv) {
     if(argc != 3){
@@ -28,6 +32,7 @@ int main(int argc, char** argv) {
         theLines.push_back(temp);
     }
 
+    //Remove blank and commented lines
     auto theEnd = theLines.end();
     for(auto i = theLines.begin(); i != theEnd; i++){
         if(i->empty()){
@@ -41,6 +46,28 @@ int main(int argc, char** argv) {
         }
     }
 
+    for(auto i = theLines.begin(); i != theLines.end(); i++){
+        if(i->at(0) == '@'){
+            aInstruction(*i);
+        }
+        else{
+            cInstruction(*i);
+        }
+    }
+
     std::cout << "Hello, World!" << std::endl;
     return 0;
+}
+
+void aInstruction(string& input){
+    string output = "0";
+    input.erase(input.begin());
+    int deciAdr = atoi(input.c_str());
+    bitset<15> binAdr(deciAdr);
+    output += binAdr.to_string();
+    input = output;
+}
+
+void cInstruction(string& input){
+    
 }
