@@ -69,5 +69,23 @@ void aInstruction(string& input){
 }
 
 void cInstruction(string& input){
-    
+    string output = "111";
+    char delimiter = '=';
+    string dest = input.substr(0, input.find(delimiter));
+    if(dest == input){
+//        delimiter = ';';
+//        dest = input.substr(0, input.find(delimiter));
+        dest = "";
+    }
+    else {
+        input.erase(0, input.find(delimiter) + 1);
+    }
+    delimiter = ';';
+    string comp = input.substr(0, input.find(delimiter));
+    input.erase(0, input.find(delimiter));
+    string jump = input;
+    if(jump.find(';') == 0){
+        jump.erase(jump.begin());
+    }
+    cout <<"";
 }
