@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void aInstruction(string& input, unordered_map<string,int>& labelToNum);
+void aInstruction(string& input, unordered_map<string,int>& labelToNum, unordered_map<int,string>& numToLabel, int& greatestVarAddress);
 void cInstruction(string& input, unordered_map<string,string>& compToBits, unordered_map<string,string>& destToBits, unordered_map<string,string>& jumpToBits);
 void populateCompToBits(unordered_map<string,string>& compToBits);
 void populateDestToBits(unordered_map<string,string>& destToBits);
@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
     unordered_map<string,int> labelToNum;
     unordered_map<int, string> numToLabel;
     addPredefinedSymbols(labelToNum);
+    int greatestVarAddress = 16;
     //Scan for labels
     for(auto i = theLines.begin(); i != theLines.end(); i++){
         if(i->at(0) == '('){
@@ -89,7 +90,7 @@ int main(int argc, char** argv) {
 
     for(auto i = theLines.begin(); i != theLines.end(); i++){
         if(i->at(0) == '@'){
-            aInstruction(*i, labelToNum);
+            aInstruction(*i, labelToNum, numToLabel, greatestVarAddress);
         }
 //        else if(i->at(0) == '('){
 //            theLines.erase(i--);
@@ -109,7 +110,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void aInstruction(string& input, unordered_map<string,int>& labelToNum){
+void aInstruction(string& input, unordered_map<string,int>& labelToNum, unordered_map<int,string>& numToLabel, int& greatestVarAddress){
     string output = "0";
     input.erase(input.begin());
     int deciAdr;
@@ -125,7 +126,14 @@ void aInstruction(string& input, unordered_map<string,int>& labelToNum){
         }
         //Handles variables
         else{
-
+//            while(numToLabel.find(greatestVarAddress) != numToLabel.end()){
+//                greatestVarAddress++;
+//            }
+            cout << greatestVarAddress << endl;
+            labelToNum.insert(pair<string,int>(input, greatestVarAddress));
+            numToLabel.insert(pair<int,string>(greatestVarAddress, input));
+            deciAdr = greatestVarAddress;
+            greatestVarAddress++;
         }
     }
     bitset<15> binAdr(deciAdr);
