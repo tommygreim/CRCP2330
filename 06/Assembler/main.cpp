@@ -73,7 +73,6 @@ int main(int argc, char** argv) {
     }
 
     unordered_map<string,int> labelToNum;
-    unordered_map<int, string> numToLabel;
     addPredefinedSymbols(labelToNum);
     int greatestVarAddress = 16;
     //Scan for labels
@@ -83,7 +82,6 @@ int main(int argc, char** argv) {
             label.erase(0, 1);
             label.erase(label.length() - 1), 1;
             labelToNum.insert(pair<string,int>(label, distance(theLines.begin(), i)));
-            numToLabel.insert(pair<int,string>(distance(theLines.begin(), i), label));
             theLines.erase(i--);
         }
     }
