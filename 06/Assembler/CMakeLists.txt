@@ -3,4 +3,4 @@ project(Assembler)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Assembler main.cpp)
+add_executable(Assembler main.cpp instructionHashTables.h)

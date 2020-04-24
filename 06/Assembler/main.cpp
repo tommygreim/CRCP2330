@@ -4,13 +4,24 @@
 #include <string>
 #include <list>
 #include <bitset>
+#include <unordered_map>
 
 using namespace std;
 
 void aInstruction(string& input);
 void cInstruction(string& input);
+void populateCompToBits(unordered_map<string,string>& compToBits);
+void populateDestToBits(unordered_map<string,string>& compToBits);
+void populateJumpToBits(unordered_map<string,string>& compToBits);
 
 int main(int argc, char** argv) {
+    unordered_map<string,string> compToBits;
+    populateCompToBits(compToBits);
+    unordered_map<string,string> destToBits;
+    populateDestToBits(destToBits);
+    unordered_map<string,string> jumpToBits;
+    populateJumpToBits(jumpToBits);
+
     if(argc != 3){
         cout << "Invalid number of arguments" << endl;
         cout << "Correct Format: \t\"Assembler [Input file] [Output file]\"" << endl;
@@ -89,3 +100,44 @@ void cInstruction(string& input){
     }
     cout <<"";
 }
+
+void populateCompToBits(unordered_map<string,string>& compToBits){
+    compToBits.insert(pair<string,string>("0", "101010"));
+    compToBits.insert(pair<string,string>("", "101010"));
+    compToBits.insert(pair<string,string>("1", "111111"));
+    compToBits.insert(pair<string,string>("-1", "111010"));
+    compToBits.insert(pair<string,string>("D", "001100"));
+    compToBits.insert(pair<string,string>("A", "110000"));
+    compToBits.insert(pair<string,string>("M", "110000"));
+    compToBits.insert(pair<string,string>("!D", "001101"));
+    compToBits.insert(pair<string,string>("!A", "110001"));
+    compToBits.insert(pair<string,string>("!M", "110001"));
+    compToBits.insert(pair<string,string>("-D", "001111"));
+    compToBits.insert(pair<string,string>("-A", "110011"));
+    compToBits.insert(pair<string,string>("-M", "110011"));
+    compToBits.insert(pair<string,string>("D+1", "011111"));
+    compToBits.insert(pair<string,string>("A+1", "110111"));
+    compToBits.insert(pair<string,string>("M+1", "110111"));
+    compToBits.insert(pair<string,string>("D-1", "001110"));
+    compToBits.insert(pair<string,string>("A-1", "110010"));
+    compToBits.insert(pair<string,string>("M-1", "110010"));
+    compToBits.insert(pair<string,string>("D+A", "000010"));
+    compToBits.insert(pair<string,string>("D+M", "000010"));
+    compToBits.insert(pair<string,string>("D-A", "010011"));
+    compToBits.insert(pair<string,string>("D-M", "010011"));
+    compToBits.insert(pair<string,string>("A-D", "000111"));
+    compToBits.insert(pair<string,string>("M-D", "000111"));
+    compToBits.insert(pair<string,string>("D&A", "000000"));
+    compToBits.insert(pair<string,string>("D&M", "000000"));
+    compToBits.insert(pair<string,string>("D|A", "010101"));
+    compToBits.insert(pair<string,string>("D|M", "010101"));
+}
+
+void populateDestToBits(unordered_map<string,string>& destToBits){
+    destToBits.insert(pair<string,string>("", "000"));
+    destToBits.insert(pair<string,string>("M", "001"));
+    destToBits.insert(pair<string,string>("D", "010"));
+    destToBits.insert(pair<string,string>("MD", "011"));
+}
+
+void populateJumpToBits(unordered_map<string,string>& compToBits){}
