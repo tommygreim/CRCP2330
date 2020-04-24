@@ -13,6 +13,8 @@ void cInstruction(string& input, unordered_map<string,string>& compToBits, unord
 void populateCompToBits(unordered_map<string,string>& compToBits);
 void populateDestToBits(unordered_map<string,string>& destToBits);
 void populateJumpToBits(unordered_map<string,string>& jumpToBits);
+void addPredefinedSymbols(unordered_map<string,int>& labelToNum);
+bool isNumber(string& in);
 
 int main(int argc, char** argv) {
     unordered_map<string,string> compToBits;
@@ -71,6 +73,8 @@ int main(int argc, char** argv) {
     }
 
     unordered_map<string,int> labelToNum;
+    unordered_map<int, string> numToLabel;
+    addPredefinedSymbols(labelToNum);
     //Scan for labels
     for(auto i = theLines.begin(); i != theLines.end(); i++){
         if(i->at(0) == '('){
@@ -78,6 +82,7 @@ int main(int argc, char** argv) {
             label.erase(0, 1);
             label.erase(label.length() - 1), 1;
             labelToNum.insert(pair<string,int>(label, distance(theLines.begin(), i)));
+            numToLabel.insert(pair<int,string>(distance(theLines.begin(), i), label));
             theLines.erase(i--);
         }
     }
@@ -111,8 +116,17 @@ void aInstruction(string& input, unordered_map<string,int>& labelToNum){
     if(labelToNum.find(input) != labelToNum.end()){
         deciAdr = labelToNum.find(input)->second;
     }
+    else if(input.at(0) == 'R'){
+        deciAdr = atoi(input.substr(1).c_str());
+    }
     else {
-        deciAdr = atoi(input.c_str());
+        if(isNumber(input)){
+            deciAdr = atoi(input.c_str());
+        }
+        //Handles variables
+        else{
+
+        }
     }
     bitset<15> binAdr(deciAdr);
     output += binAdr.to_string();
@@ -204,4 +218,23 @@ void populateJumpToBits(unordered_map<string,string>& jumpToBits){
     jumpToBits.insert(pair<string,string>("JNE", "101"));
     jumpToBits.insert(pair<string,string>("JLE", "110"));
     jumpToBits.insert(pair<string,string>("JMP", "111"));
+}
+
+void addPredefinedSymbols(unordered_map<string,int>& labelToNum){
+    labelToNum.insert(pair<string,int>("SP", 0));
+    labelToNum.insert(pair<string,int>("LCL", 1));
+    labelToNum.insert(pair<string,int>("ARG", 2));
+    labelToNum.insert(pair<string,int>("THIS", 3));
+    labelToNum.insert(pair<string,int>("THAT", 4));
+    labelToNum.insert(pair<string,int>("SCREEN", 16384));
+    labelToNum.insert(pair<string,int>("KBD", 24576));
+}
+
+bool isNumber(string& in){
+    for(auto i = in.begin(); i != in.end(); i++){
+        if(*i > 57 || *i < 48){
+            return false;
+        }
+    }
+    return true;
 }
