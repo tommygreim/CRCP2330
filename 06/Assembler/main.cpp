@@ -9,10 +9,10 @@
 using namespace std;
 
 void aInstruction(string& input);
-void cInstruction(string& input);
+void cInstruction(string& input, unordered_map<string,string>& compToBits, unordered_map<string,string>& destToBits, unordered_map<string,string>& jumpToBits);
 void populateCompToBits(unordered_map<string,string>& compToBits);
-void populateDestToBits(unordered_map<string,string>& compToBits);
-void populateJumpToBits(unordered_map<string,string>& compToBits);
+void populateDestToBits(unordered_map<string,string>& destToBits);
+void populateJumpToBits(unordered_map<string,string>& jumpToBits);
 
 int main(int argc, char** argv) {
     unordered_map<string,string> compToBits;
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
             aInstruction(*i);
         }
         else{
-            cInstruction(*i);
+            cInstruction(*i, compToBits, destToBits, jumpToBits);
         }
     }
 
@@ -79,8 +79,7 @@ void aInstruction(string& input){
     input = output;
 }
 
-void cInstruction(string& input){
-    string output = "111";
+void cInstruction(string& input, unordered_map<string,string>& compToBits, unordered_map<string,string>& destToBits, unordered_map<string,string>& jumpToBits){
     char delimiter = '=';
     string dest = input.substr(0, input.find(delimiter));
     if(dest == input){
@@ -98,7 +97,20 @@ void cInstruction(string& input){
     if(jump.find(';') == 0){
         jump.erase(jump.begin());
     }
-    cout <<"";
+
+    string a;
+    //Tests if comp contains M, if so set a to 1
+    if(comp.find('M') != string::npos){
+        a = "1";
+    }
+    else {
+        a = "0";
+    }
+    comp = compToBits.find(comp)->second;
+    dest = destToBits.find(dest)->second;
+    jump = jumpToBits.find(jump)->second;
+
+    input = "111" + a + comp + dest + jump;
 }
 
 void populateCompToBits(unordered_map<string,string>& compToBits){
