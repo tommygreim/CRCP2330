@@ -138,6 +138,19 @@ void populateDestToBits(unordered_map<string,string>& destToBits){
     destToBits.insert(pair<string,string>("M", "001"));
     destToBits.insert(pair<string,string>("D", "010"));
     destToBits.insert(pair<string,string>("MD", "011"));
+    destToBits.insert(pair<string,string>("A", "100"));
+    destToBits.insert(pair<string,string>("AM", "101"));
+    destToBits.insert(pair<string,string>("AD", "110"));
+    destToBits.insert(pair<string,string>("AMD", "111"));
 }
 
-void populateJumpToBits(unordered_map<string,string>& compToBits){}
+void populateJumpToBits(unordered_map<string,string>& jumpToBits){
+    jumpToBits.insert(pair<string,string>("", "000"));
+    jumpToBits.insert(pair<string,string>("JGT", "001"));
+    jumpToBits.insert(pair<string,string>("JEQ", "010"));
+    jumpToBits.insert(pair<string,string>("JGE", "011"));
+    jumpToBits.insert(pair<string,string>("JLT", "100"));
+    jumpToBits.insert(pair<string,string>("JNE", "101"));
+    jumpToBits.insert(pair<string,string>("JLE", "110"));
+    jumpToBits.insert(pair<string,string>("JMP", "111"));
+}
