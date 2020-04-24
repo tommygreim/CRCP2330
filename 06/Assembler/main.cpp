@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void aInstruction(string& input, unordered_map<string,int>& labelToNum, unordered_map<int,string>& numToLabel, int& greatestVarAddress);
+void aInstruction(string& input);
 void cInstruction(string& input, unordered_map<string,string>& compToBits, unordered_map<string,string>& destToBits, unordered_map<string,string>& jumpToBits);
 void populateCompToBits(unordered_map<string,string>& compToBits);
 void populateDestToBits(unordered_map<string,string>& destToBits);
@@ -88,9 +88,31 @@ int main(int argc, char** argv) {
         }
     }
 
+    //Scan for variables
     for(auto i = theLines.begin(); i != theLines.end(); i++){
         if(i->at(0) == '@'){
-            aInstruction(*i, labelToNum, numToLabel, greatestVarAddress);
+            string adr = *i;
+            adr.erase(adr.begin());
+            if(adr == "RET_ADDRESS_CALL0"){
+                cout << "";
+            }
+            if(!isNumber(adr)){
+                if(labelToNum.find(adr) != labelToNum.end()){
+                    string temp = "@" + to_string(labelToNum.find(adr)->second);
+                    *i = temp;
+                }
+                else {
+                    labelToNum.insert(pair<string,int>(adr, greatestVarAddress));
+                    *i = "@" + to_string(greatestVarAddress);
+                    greatestVarAddress++;
+                }
+            }
+        }
+    }
+
+    for(auto i = theLines.begin(); i != theLines.end(); i++){
+        if(i->at(0) == '@'){
+            aInstruction(*i);
         }
 //        else if(i->at(0) == '('){
 //            theLines.erase(i--);
@@ -110,32 +132,11 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void aInstruction(string& input, unordered_map<string,int>& labelToNum, unordered_map<int,string>& numToLabel, int& greatestVarAddress){
+void aInstruction(string& input){
     string output = "0";
     input.erase(input.begin());
     int deciAdr;
-    if(labelToNum.find(input) != labelToNum.end()){
-        deciAdr = labelToNum.find(input)->second;
-    }
-    else if(input.at(0) == 'R'){
-        deciAdr = atoi(input.substr(1).c_str());
-    }
-    else {
-        if(isNumber(input)){
-            deciAdr = atoi(input.c_str());
-        }
-        //Handles variables
-        else{
-//            while(numToLabel.find(greatestVarAddress) != numToLabel.end()){
-//                greatestVarAddress++;
-//            }
-            cout << greatestVarAddress << endl;
-            labelToNum.insert(pair<string,int>(input, greatestVarAddress));
-            numToLabel.insert(pair<int,string>(greatestVarAddress, input));
-            deciAdr = greatestVarAddress;
-            greatestVarAddress++;
-        }
-    }
+    deciAdr = atoi(input.c_str());
     bitset<15> binAdr(deciAdr);
     output += binAdr.to_string();
     input = output;
@@ -236,6 +237,9 @@ void addPredefinedSymbols(unordered_map<string,int>& labelToNum){
     labelToNum.insert(pair<string,int>("THAT", 4));
     labelToNum.insert(pair<string,int>("SCREEN", 16384));
     labelToNum.insert(pair<string,int>("KBD", 24576));
+    for(int i = 0; i < 16; i++){
+        labelToNum.insert(pair<string,int>("R" + to_string(i), i));
+    }
 }
 
 bool isNumber(string& in){
