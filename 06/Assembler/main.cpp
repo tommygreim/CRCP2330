@@ -66,6 +66,12 @@ int main(int argc, char** argv) {
         }
     }
 
+    ofstream vmOut(argv[2]);
+
+    for(auto i = theLines.begin(); i != theLines.end(); i++){
+        vmOut << *i << endl;
+    }
+
     std::cout << "Hello, World!" << std::endl;
     return 0;
 }
