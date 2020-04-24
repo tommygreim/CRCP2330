@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void aInstruction(string& input);
+void aInstruction(string& input, unordered_map<string,int>& labelToNum);
 void cInstruction(string& input, unordered_map<string,string>& compToBits, unordered_map<string,string>& destToBits, unordered_map<string,string>& jumpToBits);
 void populateCompToBits(unordered_map<string,string>& compToBits);
 void populateDestToBits(unordered_map<string,string>& destToBits);
@@ -57,10 +57,38 @@ int main(int argc, char** argv) {
         }
     }
 
+    //Remove spaces and post-line comments
+    for(auto i = theLines.begin(); i != theEnd; i++){
+        for(auto j = i->begin(); j != i->end(); j++){
+            if(*j == ' '){
+                i->erase(j--);
+            }
+            else if(*j == '/' && *(j+1) == '/'){
+                *i = i->substr(0, distance(i->begin(), j));
+                break;
+            }
+        }
+    }
+
+    unordered_map<string,int> labelToNum;
+    //Scan for labels
+    for(auto i = theLines.begin(); i != theLines.end(); i++){
+        if(i->at(0) == '('){
+            string label = *i;
+            label.erase(0, 1);
+            label.erase(label.length() - 1), 1;
+            labelToNum.insert(pair<string,int>(label, distance(theLines.begin(), i)));
+            theLines.erase(i--);
+        }
+    }
+
     for(auto i = theLines.begin(); i != theLines.end(); i++){
         if(i->at(0) == '@'){
-            aInstruction(*i);
+            aInstruction(*i, labelToNum);
         }
+//        else if(i->at(0) == '('){
+//            theLines.erase(i--);
+//        }
         else{
             cInstruction(*i, compToBits, destToBits, jumpToBits);
         }
@@ -76,10 +104,16 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void aInstruction(string& input){
+void aInstruction(string& input, unordered_map<string,int>& labelToNum){
     string output = "0";
     input.erase(input.begin());
-    int deciAdr = atoi(input.c_str());
+    int deciAdr;
+    if(labelToNum.find(input) != labelToNum.end()){
+        deciAdr = labelToNum.find(input)->second;
+    }
+    else {
+        deciAdr = atoi(input.c_str());
+    }
     bitset<15> binAdr(deciAdr);
     output += binAdr.to_string();
     input = output;
@@ -89,8 +123,6 @@ void cInstruction(string& input, unordered_map<string,string>& compToBits, unord
     char delimiter = '=';
     string dest = input.substr(0, input.find(delimiter));
     if(dest == input){
-//        delimiter = ';';
-//        dest = input.substr(0, input.find(delimiter));
         dest = "";
     }
     else {
@@ -112,6 +144,7 @@ void cInstruction(string& input, unordered_map<string,string>& compToBits, unord
     else {
         a = "0";
     }
+
     comp = compToBits.find(comp)->second;
     dest = destToBits.find(dest)->second;
     jump = jumpToBits.find(jump)->second;
