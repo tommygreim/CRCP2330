@@ -47,17 +47,31 @@ class Fraction {
   	return Fraction.new(newNum, newDenom);
   }
 
-  method Fraction div(Fraction other){
-  	var Fraction multInv, toReturn;
-  	let multInv = Fraction.new(other.getDenominator(), other.getNumerator());
-  	let toReturn = this.mult(multInv)
-  	return toReturn;
+    method Fraction div(Fraction other){
+    var Fraction multInv, toReturn;
+    let multInv = Fraction.new(other.getDenominator(), other.getNumerator());
+    let toReturn = mult(multInv);
+    return toReturn;
   }
 
   method int floor(){
   	var int theFloor;
   	let theFloor = numerator / denominator;
   	return theFloor;
+  }
+
+  method Fraction addInv(){
+    var Fraction negOne;
+    let negOne = Fraction.new(-1, 1);
+    return mult(negOne);
+  }
+
+  //Approximations of Trig Functions
+  method Fraction sinOfThis(){
+    Fraction invTwoPi, d, toReturn;
+    let invTwoPi = Fraction.new(100, 628);
+    let d = mult(invTwoPi);
+    let d = d.plus(Fraction,new(d.addInv().floor(), 1));
   }
 
    /** Disposes this fraction. */
