@@ -1,0 +1,74 @@
+
+
+class Int32{
+	field Array bits;
+
+	constructor Array new(int initial) {
+		var int nearestPowerOfTwo, counter;
+		let bits = Array.new(32);
+		while(initial != 0){
+			let nearestPowerOfTwo = 1;
+			let counter = 0;
+			while(initial / (nearestPowerOfTwo * 2) != 0){
+				let nearestPowerOfTwo = nearestPowerOfTwo * 2;
+				let counter = counter += 1;
+			}
+			bits[counter] = true;
+			initial -= nearestPowerOfTwo;
+		}
+		return this;   // a constructor is expected to return a reference to the new object
+	}
+}
+
+// /******************************************************************************
+
+// Welcome to GDB Online.
+// GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+// C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+// Code, Compile, Run and Debug online from anywhere in world.
+
+// *******************************************************************************/
+// #include <stdio.h>
+
+// #include <vector>
+// #include <iostream>
+// using namespace std;
+
+// vector<bool> intToBits(int input);
+
+// int main()
+// {
+//     vector<bool> test;
+//     test = intToBits(2423);
+//     for(int i = 31; i >= 0; i--){
+//         cout << test[i] << " ";
+//     }
+//     cout << endl;
+//     return 0;
+// }
+
+// vector<bool> intToBits(int input){
+// 		int nearestPowerOfTwo, counter;
+// 		bool isNeg = false;
+// 		vector<bool> bits;
+// 		for(int i = 0; i < 32; i++){
+// 		    bits.push_back(false);
+// 		}
+// 		if(input < 0){
+// 		    isNeg = true;
+// 		    input = input *= -1
+// 		}
+// 		while(input > 0){
+// 			nearestPowerOfTwo = 1;
+// 			counter = 0;
+// 			while(input / (nearestPowerOfTwo * 2) != 0){
+// 				nearestPowerOfTwo = nearestPowerOfTwo * 2;
+// 				counter = counter + 1;
+// 			}
+// 			bits.at(counter) = true;
+// 			input -= nearestPowerOfTwo;
+// 		}
+// 		return bits;
+// }
+
+
