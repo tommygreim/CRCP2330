@@ -37,6 +37,24 @@ class Fraction {
       return Fraction.new(sum, denominator * other.getDenominator());
    }
 
+   //Comparison Operators
+
+   //Returns true if greater than or equal to
+   method boolean isGTE(Fraction other){
+      var boolean toReturn;
+      var int thisProduct, otherProduct;
+      let thisProduct = numerator * other.getDenominator();
+      let otherProduct = other.getNumerator() * denominator;
+      if(thisProduct >= otherProduct){
+        return true;
+      }
+      return false;
+      //If the floors are equal
+
+
+
+   }
+
    // More fraction-related methods (minus, times, div, etc.) can be added here.
   
   method Fraction mult(Fraction other){
@@ -68,10 +86,12 @@ class Fraction {
 
   //Approximations of Trig Functions
   method Fraction sinOfThis(){
-    Fraction invTwoPi, d, toReturn;
+    Fraction invTwoPi, oneHalf, d, toReturn;
     let invTwoPi = Fraction.new(100, 628);
+    let oneHalf = Fraction.new(1, 2);
     let d = mult(invTwoPi);
     let d = d.plus(Fraction,new(d.addInv().floor(), 1));
+
   }
 
    /** Disposes this fraction. */
