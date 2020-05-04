@@ -26,15 +26,47 @@ class Fraction {
       return;
    }
 
+   //Reduces this fraction to avoid overflow. Introduces imprecision
+   method void lossyReduce(int factor) {
+      do reduce();
+      if(numerator > 500){
+          let numerator = numerator / factor;
+          let denominator = denominator / factor;
+          return;
+      }
+      if(denominator > 500){
+          let numerator = numerator / factor;
+          let denominator = denominator / factor;
+      }
+      return;
+   }
+
+
    /** Accessors. */
    method int getNumerator() { return numerator; }
    method int getDenominator() { return denominator; }  
 
    /** Returns the sum of this fraction and the other one. */
    method Fraction plus(Fraction other) {
+    var Fraction toReturn;
       var int sum;
+      //do lossyReduce(2);
+      //do other.lossyReduce(2);
+      // do Output.println();
+      // do print();
+      // do other.print();
+      // do Output.println();
       let sum = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
-      return Fraction.new(sum, denominator * other.getDenominator());
+      let toReturn = Fraction.new(sum, denominator * other.getDenominator());
+      do toReturn.lossyReduce(2);
+      return toReturn;
+   }
+
+   //A more impercise version of plus for values that approach the 16 bit limit
+   method Fraction bigPlus(Fraction other){
+      var Fraction reduced;
+      let reduced = Fraction.new(numerator / 2, denominator / 2);
+      return reduced.plus(other);
    }
 
    //Comparison Operators
@@ -54,11 +86,16 @@ class Fraction {
    // More fraction-related methods (minus, times, div, etc.) can be added here.
   
   method Fraction mult(Fraction other){
+    var Fraction toReturn;
   	var int newNum;
   	var int newDenom;
+    //do lossyReduce(2);
+    //do other.lossyReduce(2);
   	let newNum = numerator * other.getNumerator();
   	let newDenom = denominator * other.getDenominator();
-  	return Fraction.new(newNum, newDenom);
+  	let toReturn = Fraction.new(newNum, newDenom);
+    //do toReturn.lossyReduce(2);
+    return toReturn;
   }
 
   method Fraction multInt(int other){
@@ -91,7 +128,7 @@ class Fraction {
   method Fraction sinOfThis(){
     var Fraction invTwoPi, oneHalf, d, toReturn, intermediate;
     var int interInt;
-    let invTwoPi = Fraction.new(100, 628);
+    let invTwoPi = Fraction.new(50, 314);
     let oneHalf = Fraction.new(1, 2);
     let d = mult(invTwoPi);
     let interInt = d.floor();
@@ -116,6 +153,17 @@ class Fraction {
     return toReturn;
   }
 
+  method Fraction cosOfThis(){
+    var Fraction intermediate, toReturn;
+    let intermediate = Fraction.new(314, 200);
+    do intermediate.print();
+    let intermediate = plus(intermediate);
+    do print();
+    do intermediate.print();
+    let toReturn = intermediate.sinOfThis();
+    return toReturn;
+  }
+
    /** Disposes this fraction. */
    method void dispose() {
       do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
@@ -127,6 +175,7 @@ class Fraction {
       do Output.printInt(numerator);
       do Output.printString("/");
       do Output.printInt(denominator);
+      do Output.println();
       return;
    }
 

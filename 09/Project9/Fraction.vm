@@ -35,6 +35,46 @@ pop this 1
 label IF_FALSE0
 push constant 0
 return
+function Fraction.lossyReduce 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Fraction.reduce 1
+pop temp 0
+push this 0
+push constant 500
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push argument 1
+call Math.divide 2
+pop this 0
+push this 1
+push argument 1
+call Math.divide 2
+pop this 1
+push constant 0
+return
+label IF_FALSE0
+push this 1
+push constant 500
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push argument 1
+call Math.divide 2
+pop this 0
+push this 1
+push argument 1
+call Math.divide 2
+pop this 1
+label IF_FALSE1
+push constant 0
+return
 function Fraction.getNumerator 0
 push argument 0
 pop pointer 0
@@ -45,9 +85,17 @@ push argument 0
 pop pointer 0
 push this 1
 return
-function Fraction.plus 1
+function Fraction.plus 2
 push argument 0
 pop pointer 0
+push pointer 0
+push constant 2
+call Fraction.lossyReduce 2
+pop temp 0
+push argument 1
+push constant 2
+call Fraction.lossyReduce 2
+pop temp 0
 push this 0
 push argument 1
 call Fraction.getDenominator 1
@@ -57,13 +105,34 @@ call Fraction.getNumerator 1
 push this 1
 call Math.multiply 2
 add
-pop local 0
-push local 0
+pop local 1
+push local 1
 push this 1
 push argument 1
 call Fraction.getDenominator 1
 call Math.multiply 2
 call Fraction.new 2
+pop local 0
+push local 0
+push constant 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 0
+return
+function Fraction.bigPlus 1
+push argument 0
+pop pointer 0
+push this 0
+push constant 2
+call Math.divide 2
+push this 1
+push constant 2
+call Math.divide 2
+call Fraction.new 2
+pop local 0
+push local 0
+push argument 1
+call Fraction.plus 2
 return
 function Fraction.isGTE 3
 push argument 0
@@ -90,22 +159,32 @@ return
 label IF_FALSE0
 push constant 0
 return
-function Fraction.mult 2
+function Fraction.mult 3
 push argument 0
 pop pointer 0
+push pointer 0
+push constant 2
+call Fraction.lossyReduce 2
+pop temp 0
+push argument 1
+push constant 2
+call Fraction.lossyReduce 2
+pop temp 0
 push this 0
 push argument 1
 call Fraction.getNumerator 1
 call Math.multiply 2
-pop local 0
+pop local 1
 push this 1
 push argument 1
 call Fraction.getDenominator 1
 call Math.multiply 2
-pop local 1
-push local 0
+pop local 2
 push local 1
+push local 2
 call Fraction.new 2
+pop local 0
+push local 0
 return
 function Fraction.multInt 1
 push argument 0
@@ -157,8 +236,8 @@ return
 function Fraction.sinOfThis 6
 push argument 0
 pop pointer 0
-push constant 100
-push constant 628
+push constant 50
+push constant 314
 call Fraction.new 2
 pop local 0
 push constant 1
@@ -238,6 +317,31 @@ pop local 3
 label IF_END0
 push local 3
 return
+function Fraction.cosOfThis 2
+push argument 0
+pop pointer 0
+push constant 314
+push constant 200
+call Fraction.new 2
+pop local 0
+push local 0
+call Fraction.print 1
+pop temp 0
+push pointer 0
+push local 0
+call Fraction.plus 2
+pop local 0
+push pointer 0
+call Fraction.print 1
+pop temp 0
+push local 0
+call Fraction.print 1
+pop temp 0
+push local 0
+call Fraction.sinOfThis 1
+pop local 1
+push local 1
+return
 function Fraction.dispose 0
 push argument 0
 pop pointer 0
@@ -260,6 +364,8 @@ call Output.printString 1
 pop temp 0
 push this 1
 call Output.printInt 1
+pop temp 0
+call Output.println 0
 pop temp 0
 push constant 0
 return

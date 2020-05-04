@@ -17,8 +17,8 @@ class Main {
       let ang1 = Fraction.new(0,1);
       let ang2 = Fraction.new(120,1);
       let ang3 = Fraction.new(240,1);
-      let sinTest = Fraction.new(314, 300);
-      let sinTest = sinTest.sinOfThis();
+      let sinTest = Fraction.new(628, 100);
+      let sinTest = sinTest.cosOfThis();
       do sinTest.print();
       
       return;

@@ -15,12 +15,12 @@ push constant 240
 push constant 1
 call Fraction.new 2
 pop local 3
-push constant 314
-push constant 300
+push constant 6280
+push constant 100
 call Fraction.new 2
 pop local 4
 push local 4
-call Fraction.sinOfThis 1
+call Fraction.cosOfThis 1
 pop local 4
 push local 4
 call Fraction.print 1
