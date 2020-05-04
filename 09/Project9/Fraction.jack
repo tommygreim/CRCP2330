@@ -27,16 +27,21 @@ class Fraction {
    }
 
    //Reduces this fraction to avoid overflow. Introduces imprecision
-   method void lossyReduce(int factor) {
+   method void lossyReduce(int limit) {
       do reduce();
-      if(numerator > 500){
-          let numerator = numerator / factor;
-          let denominator = denominator / factor;
-          return;
+      while(numerator > limit){
+          if(denominator / 2 = 0){
+            return;
+          }
+          let numerator = numerator / 2;
+          let denominator = denominator / 2;
       }
-      if(denominator > 500){
-          let numerator = numerator / factor;
-          let denominator = denominator / factor;
+      while(denominator > limit){
+          if(denominator / 2 = 0){
+            return;
+          }
+          let numerator = numerator / 2;
+          let denominator = denominator / 2;
       }
       return;
    }
@@ -50,16 +55,22 @@ class Fraction {
    method Fraction plus(Fraction other) {
     var Fraction toReturn;
       var int sum;
-      //do lossyReduce(2);
-      //do other.lossyReduce(2);
+      // do lossyReduce(2);
+      // do other.lossyReduce(2);
       // do Output.println();
       // do print();
       // do other.print();
       // do Output.println();
       let sum = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
       let toReturn = Fraction.new(sum, denominator * other.getDenominator());
-      do toReturn.lossyReduce(2);
+      // do toReturn.lossyReduce(2);
       return toReturn;
+   }
+
+   method Fraction plusInt(int other){
+      var Fraction intToFrac;
+      let intToFrac = Fraction.new(other, 1);
+      return plus(intToFrac);
    }
 
    //A more impercise version of plus for values that approach the 16 bit limit
@@ -89,8 +100,8 @@ class Fraction {
     var Fraction toReturn;
   	var int newNum;
   	var int newDenom;
-    //do lossyReduce(2);
-    //do other.lossyReduce(2);
+    // do lossyReduce(2);
+    // do other.lossyReduce(2);
   	let newNum = numerator * other.getNumerator();
   	let newDenom = denominator * other.getDenominator();
   	let toReturn = Fraction.new(newNum, newDenom);
@@ -136,6 +147,8 @@ class Fraction {
     let intermediate = Fraction.new(interInt, 1);
     let d = d.plus(intermediate);
     if(d.isGTE(oneHalf)){
+        do d.lossyReduce(181);
+        do d.print();
         let toReturn = d.mult(d);
         let toReturn = toReturn.multInt(16);
         let intermediate = d.multInt(-24);
@@ -144,6 +157,7 @@ class Fraction {
         let toReturn = toReturn.plus(intermediate);
     }
     else {
+        do d.lossyReduce(181);
         let toReturn = d.mult(d);
         let toReturn = toReturn.multInt(-16);
         let intermediate = d.multInt(8);
@@ -156,10 +170,10 @@ class Fraction {
   method Fraction cosOfThis(){
     var Fraction intermediate, toReturn;
     let intermediate = Fraction.new(314, 200);
-    do intermediate.print();
+    // do intermediate.print();
     let intermediate = plus(intermediate);
-    do print();
-    do intermediate.print();
+    // do print();
+    // do intermediate.print();
     let toReturn = intermediate.sinOfThis();
     return toReturn;
   }
