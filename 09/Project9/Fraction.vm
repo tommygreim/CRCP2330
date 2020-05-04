@@ -65,6 +65,31 @@ call Fraction.getDenominator 1
 call Math.multiply 2
 call Fraction.new 2
 return
+function Fraction.isGTE 3
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Fraction.getDenominator 1
+call Math.multiply 2
+pop local 1
+push argument 1
+call Fraction.getNumerator 1
+push this 1
+call Math.multiply 2
+pop local 2
+push local 1
+push local 2
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
 function Fraction.mult 2
 push argument 0
 pop pointer 0
@@ -80,6 +105,17 @@ call Math.multiply 2
 pop local 1
 push local 0
 push local 1
+call Fraction.new 2
+return
+function Fraction.multInt 1
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Math.multiply 2
+pop local 0
+push local 0
+push this 1
 call Fraction.new 2
 return
 function Fraction.div 2
@@ -105,6 +141,102 @@ push this 1
 call Math.divide 2
 pop local 0
 push local 0
+return
+function Fraction.addInv 1
+push argument 0
+pop pointer 0
+push constant 1
+neg
+push constant 1
+call Fraction.new 2
+pop local 0
+push pointer 0
+push local 0
+call Fraction.mult 2
+return
+function Fraction.sinOfThis 6
+push argument 0
+pop pointer 0
+push constant 100
+push constant 628
+call Fraction.new 2
+pop local 0
+push constant 1
+push constant 2
+call Fraction.new 2
+pop local 1
+push pointer 0
+push local 0
+call Fraction.mult 2
+pop local 2
+push local 2
+call Fraction.floor 1
+pop local 5
+push local 5
+push constant 1
+neg
+call Math.multiply 2
+pop local 5
+push local 5
+push constant 1
+call Fraction.new 2
+pop local 4
+push local 2
+push local 4
+call Fraction.plus 2
+pop local 2
+push local 2
+push local 1
+call Fraction.isGTE 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+push local 2
+call Fraction.mult 2
+pop local 3
+push local 3
+push constant 16
+call Fraction.multInt 2
+pop local 3
+push local 2
+push constant 24
+neg
+call Fraction.multInt 2
+pop local 4
+push local 3
+push local 4
+call Fraction.plus 2
+pop local 3
+push constant 8
+push constant 1
+call Fraction.new 2
+pop local 4
+push local 3
+push local 4
+call Fraction.plus 2
+pop local 3
+goto IF_END0
+label IF_FALSE0
+push local 2
+push local 2
+call Fraction.mult 2
+pop local 3
+push local 3
+push constant 16
+neg
+call Fraction.multInt 2
+pop local 3
+push local 2
+push constant 8
+call Fraction.multInt 2
+pop local 4
+push local 3
+push local 4
+call Fraction.plus 2
+pop local 3
+label IF_END0
+push local 3
 return
 function Fraction.dispose 0
 push argument 0

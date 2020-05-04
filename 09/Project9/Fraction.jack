@@ -45,14 +45,10 @@ class Fraction {
       var int thisProduct, otherProduct;
       let thisProduct = numerator * other.getDenominator();
       let otherProduct = other.getNumerator() * denominator;
-      if(thisProduct >= otherProduct){
+      if(thisProduct > otherProduct){
         return true;
       }
       return false;
-      //If the floors are equal
-
-
-
    }
 
    // More fraction-related methods (minus, times, div, etc.) can be added here.
@@ -63,6 +59,12 @@ class Fraction {
   	let newNum = numerator * other.getNumerator();
   	let newDenom = denominator * other.getDenominator();
   	return Fraction.new(newNum, newDenom);
+  }
+
+  method Fraction multInt(int other){
+    var int newNum;
+    let newNum = numerator * other;
+    return Fraction.new(newNum, denominator);
   }
 
     method Fraction div(Fraction other){
@@ -78,6 +80,7 @@ class Fraction {
   	return theFloor;
   }
 
+  //Gets the additive inverse of this fraction
   method Fraction addInv(){
     var Fraction negOne;
     let negOne = Fraction.new(-1, 1);
@@ -86,12 +89,31 @@ class Fraction {
 
   //Approximations of Trig Functions
   method Fraction sinOfThis(){
-    Fraction invTwoPi, oneHalf, d, toReturn;
+    var Fraction invTwoPi, oneHalf, d, toReturn, intermediate;
+    var int interInt;
     let invTwoPi = Fraction.new(100, 628);
     let oneHalf = Fraction.new(1, 2);
     let d = mult(invTwoPi);
-    let d = d.plus(Fraction,new(d.addInv().floor(), 1));
-
+    let interInt = d.floor();
+    let interInt = interInt * -1;
+    let intermediate = Fraction.new(interInt, 1);
+    let d = d.plus(intermediate);
+    if(d.isGTE(oneHalf)){
+        let toReturn = d.mult(d);
+        let toReturn = toReturn.multInt(16);
+        let intermediate = d.multInt(-24);
+        let toReturn = toReturn.plus(intermediate);
+        let intermediate = Fraction.new(8,1);
+        let toReturn = toReturn.plus(intermediate);
+    }
+    else {
+        let toReturn = d.mult(d);
+        let toReturn = toReturn.multInt(-16);
+        let intermediate = d.multInt(8);
+        let toReturn = toReturn.plus(intermediate);
+    }
+    //do toReturn.reduce();
+    return toReturn;
   }
 
    /** Disposes this fraction. */
