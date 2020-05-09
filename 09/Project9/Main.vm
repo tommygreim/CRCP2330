@@ -41,16 +41,9 @@ pop local 17
 push local 17
 call Int32.printBits 1
 pop temp 0
-push constant 19
-neg
-call Int32.new 1
-pop local 18
-push local 18
-call Int32.printBits 1
-pop temp 0
-push local 18
 push local 17
-call Int32.plus 2
+push constant 8
+call Int32.asr 2
 pop local 18
 push local 18
 call Int32.printBits 1
@@ -58,11 +51,6 @@ pop temp 0
 push local 18
 call Int32.toInt 1
 call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
-push local 18
-call Int32.printBits 1
 pop temp 0
 label WHILE_EXP0
 push constant 0

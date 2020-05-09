@@ -27,13 +27,9 @@ class Main {
 		//do sinTest.print();
 		let test1 = Int32.new(-27);
 		do test1.printBits();
-		let test2 = Int32.new(-19);
-		do test2.printBits();
-		let test2 = test2.plus(test1);
+		let test2 = test1.asr(8);
 		do test2.printBits();
 		do Output.printInt(test2.toInt());
-		do Output.println();
-		do test2.printBits();
 
 
 		while(true){

@@ -52,7 +52,15 @@ class Int32{
 		return bits;
 	}
 
+	method boolean negative(){
+		if(bits[31] = true){
+			return true;
+		}
+		return false;
+	}
 
+
+	//Simple Addition
 	method Int32 plus(Int32 other){
 		var Int32 toReturn;
 		var Array newBits, intermediate;
@@ -89,7 +97,55 @@ class Int32{
 		return toReturn;
 	}
 
+	method Int32 div(Int32 other){
+		var Int32 thisCopy, otherCopy, toReturn, i;
+		var boolean resultNeg;
+		//Copies to avoid overriding the originals
+		let thisCopy = Int32.copyNew(bits);
+		let otherCopy = Int32.copyNew(otherCopy.getBits());
+		//Check if either number is negative
+		//If the dividend is negative, negate it.
+		// If the divisor is positive, negate it.
+		if(negative()){
+			if(other.negative()){
+				let resultNeg = false;
+			}
+			else {
+				let resultNeg = true;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+			do thisCopy.invert();
+			do thisCopy.plusThisInt(1);
+		}
+		else{
+			if(other.negative()){
+				let resultNeg = true;
+			}
+			else {
+				let resultNeg = false;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+		}
+		
+		let toReturn = Int32.new(0);
+		let i = thisCopy.plus(otherCopy);
+		while(~i.negative()){
+			do thisCopy.plusThis(otherCopy);
+			do toReturn.plusThisInt(1);
+			let i = thisCopy.plus(otherCopy);
+		}
 
+		if(resultNeg){
+			do toReturn.invert();
+			do toReturn.plusThisInt(1);
+		}
+
+		return toReturn;
+	}
+
+	//For adding and storing the result in this
 	method void plusThis(Int32 other){
 		var Array newBits, interThis, interOther;
 		var bool carry;
@@ -124,6 +180,7 @@ class Int32{
 		return;
 	}
 
+	//For adding 16bit integers
 	method Int32 plusInt(int other){
 		var Int32 int16to32;
 		let int16to32 = Int32.new(other);
@@ -147,10 +204,36 @@ class Int32{
 		return;
 	}
 
+
+	//Performs an arithmatic bitshift right
+	method Int32 asr(int shifts){
+		var Int32 toReturn;
+		var Array shiftedBits;
+		var int i;
+		if(negative()){
+			let toReturn = Int32.new(-1);
+		}
+		else {
+			let toReturn= Int32.new(0);
+		}
+		let shiftedBits = toReturn.getBits();
+		//let shifts = shifts - 1;
+		let i = 0;
+		while(shifts < 32){
+			let shiftedBits[i] = bits[shifts];
+			let i = i + 1;
+			let shifts = shifts + 1;
+		}
+		let toReturn = Int32.copyNew(shiftedBits);
+		return toReturn;
+	}
+
 	// method void inc(){
 	// 	let this = plusInt(1);
 	// }
 
+
+	//Cast to 16bit integer
 	method int toInt(){
 		var int i, j, toReturn, intermediate;
 		var boolean isNeg;
