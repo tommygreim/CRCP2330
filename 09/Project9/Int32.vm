@@ -292,7 +292,7 @@ pop pointer 0
 push this 0
 call Int32.copyNew 1
 pop local 0
-push local 1
+push argument 1
 call Int32.getBits 1
 call Int32.copyNew 1
 pop local 1
@@ -379,6 +379,113 @@ pop local 3
 goto WHILE_EXP0
 label WHILE_END0
 push local 4
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 2
+call Int32.invert 1
+pop temp 0
+push local 2
+push constant 1
+call Int32.plusThisInt 2
+pop temp 0
+label IF_FALSE3
+push local 2
+return
+function Int32.mul 4
+push argument 0
+pop pointer 0
+push constant 0
+call Int32.new 1
+pop local 2
+push this 0
+call Int32.copyNew 1
+pop local 0
+push argument 1
+call Int32.getBits 1
+call Int32.copyNew 1
+pop local 1
+push pointer 0
+call Int32.negative 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+call Int32.negative 1
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop local 3
+push local 1
+call Int32.invert 1
+pop temp 0
+push local 1
+push constant 1
+call Int32.plusThisInt 2
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push constant 0
+not
+pop local 3
+label IF_END1
+push local 0
+call Int32.invert 1
+pop temp 0
+push local 0
+push constant 1
+call Int32.plusThisInt 2
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push argument 1
+call Int32.negative 1
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+not
+pop local 3
+push local 1
+call Int32.invert 1
+pop temp 0
+push local 1
+push constant 1
+call Int32.plusThisInt 2
+pop temp 0
+goto IF_END2
+label IF_FALSE2
+push constant 0
+pop local 3
+label IF_END2
+label IF_END0
+push local 1
+push constant 1
+neg
+call Int32.plusThisInt 2
+pop temp 0
+push local 0
+call Int32.printBits 1
+pop temp 0
+label WHILE_EXP0
+push local 1
+call Int32.negative 1
+not
+not
+if-goto WHILE_END0
+push local 2
+push local 0
+call Int32.plusThis 2
+pop temp 0
+push local 1
+push constant 1
+neg
+call Int32.plusThisInt 2
+pop temp 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 3
 if-goto IF_TRUE3
 goto IF_FALSE3
 label IF_TRUE3

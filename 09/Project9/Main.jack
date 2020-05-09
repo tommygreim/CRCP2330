@@ -13,7 +13,7 @@ class Main {
    function void main() {
   		var int centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt;
   		var Fraction radConst, ang1, ang2, ang3, sinTest, intermediate;
-  		var Int32 test1, test2;
+  		var Int32 test1, test2, test3;
   		let centerX = 512 / 2;
   		let centerY = 256 / 2;
   		let radius = 25;
@@ -27,9 +27,10 @@ class Main {
 		//do sinTest.print();
 		let test1 = Int32.new(-27);
 		do test1.printBits();
-		let test2 = test1.asr(8);
+		let test2 = Int32.new(4);
 		do test2.printBits();
-		do Output.printInt(test2.toInt());
+		let test3 = test1.mul(test2);
+		do Output.printInt(test3.toInt());
 
 
 		while(true){

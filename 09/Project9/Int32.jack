@@ -102,7 +102,7 @@ class Int32{
 		var boolean resultNeg;
 		//Copies to avoid overriding the originals
 		let thisCopy = Int32.copyNew(bits);
-		let otherCopy = Int32.copyNew(otherCopy.getBits());
+		let otherCopy = Int32.copyNew(other.getBits());
 		//Check if either number is negative
 		//If the dividend is negative, negate it.
 		// If the divisor is positive, negate it.
@@ -135,6 +135,50 @@ class Int32{
 			do thisCopy.plusThis(otherCopy);
 			do toReturn.plusThisInt(1);
 			let i = thisCopy.plus(otherCopy);
+		}
+
+		if(resultNeg){
+			do toReturn.invert();
+			do toReturn.plusThisInt(1);
+		}
+
+		return toReturn;
+	}
+
+	method Int32 mul(Int32 other){
+		var Int32 thisCopy, otherCopy, toReturn;
+		var boolean resultNeg;
+		let toReturn = Int32.new(0);
+		let thisCopy = Int32.copyNew(bits);
+		let otherCopy = Int32.copyNew(other.getBits());
+		if(negative()){
+			if(other.negative()){
+				let resultNeg = false;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+			else {
+				let resultNeg = true;
+			}
+			do thisCopy.invert();
+			do thisCopy.plusThisInt(1);
+		}
+		else{
+			if(other.negative()){
+				let resultNeg = true;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+			else {
+				let resultNeg = false;
+			}
+		}
+		//I have no method for check if a number is greater than or equal to 0, but I do have one that checks if it's negative. And, if I decrement other by 1, it should essentially function the same.
+		do otherCopy.plusThisInt(-1);
+		do thisCopy.printBits();
+		while(~otherCopy.negative()){
+			do toReturn.plusThis(thisCopy);
+			do otherCopy.plusThisInt(-1);
 		}
 
 		if(resultNeg){
