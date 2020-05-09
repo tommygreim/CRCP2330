@@ -3,20 +3,198 @@
 class Int32{
 	field Array bits;
 
-	constructor Array new(int initial) {
+	constructor Int32 new(int initial) {
+		var Int32 plusOne;
 		var int nearestPowerOfTwo, counter;
+		var bool isNeg;
+		let isNeg = false;
 		let bits = Array.new(32);
-		while(initial != 0){
+		let counter = 0;
+		while(counter < 32){
+			let bits[counter] = false;
+			let counter = counter + 1;
+		}
+		if(initial < 0){
+			let isNeg = true;
+			let initial = initial * -1;
+		}
+		while(~(initial = 0)){
 			let nearestPowerOfTwo = 1;
 			let counter = 0;
-			while(initial / (nearestPowerOfTwo * 2) != 0){
+			while(~(initial / (nearestPowerOfTwo * 2) = 0)){
 				let nearestPowerOfTwo = nearestPowerOfTwo * 2;
-				let counter = counter += 1;
+				let counter = counter + 1;
 			}
-			bits[counter] = true;
-			initial -= nearestPowerOfTwo;
+			let bits[counter] = true;
+			let initial = initial - nearestPowerOfTwo;
+		}
+		//do printBits();
+		if(isNeg){
+			do invert();
+			do plusThisInt(1);
 		}
 		return this;   // a constructor is expected to return a reference to the new object
+	}
+
+
+	constructor Int32 copyNew(Array otherBits){
+		var int i;
+		let bits = Array.new(32);
+		let i = 0;
+		while(i < 32){
+			let bits[i] = otherBits[i];
+			let i = i + 1;
+		}
+		return this;
+	}
+
+	method Array getBits(){
+		return bits;
+	}
+
+
+	method Int32 plus(Int32 other){
+		var Int32 toReturn;
+		var Array newBits, intermediate;
+		var bool carry;
+		var int i, immediateSum;
+		let newBits = Array.new(32);
+		//let intermediate = Array.new(32);
+		let carry = false;
+		while(i < 32){
+			let immediateSum = bits[i];
+			let intermediate = other.getBits();
+			let immediateSum = immediateSum + intermediate[i];
+			let immediateSum = immediateSum + carry;
+			if(immediateSum = 0){
+				let newBits[i] = false;
+				let carry = false;
+			}
+			if(immediateSum = -1){
+				let newBits[i] = true;
+				let carry = false;
+			}
+			if(immediateSum = -2){
+				let newBits[i] = false;
+				let carry = true;
+			}
+			if(immediateSum = -3){
+				let newBits[i] = true;
+				let carry = true;
+			}
+			let i = i + 1;
+		}
+
+		let toReturn = Int32.copyNew(newBits);
+		return toReturn;
+	}
+
+
+	method void plusThis(Int32 other){
+		var Array newBits, interThis, interOther;
+		var bool carry;
+		var int i, immediateSum;
+		let newBits = Array.new(32);
+		//let intermediate = Array.new(32);
+		let carry = false;
+		let interThis = bits;
+		let interOther = other.getBits();
+		while(i < 32){
+			let immediateSum = interThis[i];
+			let immediateSum = interThis[i] + interOther[i];
+			let immediateSum = immediateSum + carry;
+			if(immediateSum = 0){
+				let bits[i] = false;
+				let carry = false;
+			}
+			if(immediateSum = -1){
+				let bits[i] = true;
+				let carry = false;
+			}
+			if(immediateSum = -2){
+				let bits[i] = false;
+				let carry = true;
+			}
+			if(immediateSum = -3){
+				let bits[i] = true;
+				let carry = true;
+			}
+			let i = i + 1;
+		}
+		return;
+	}
+
+	method Int32 plusInt(int other){
+		var Int32 int16to32;
+		let int16to32 = Int32.new(other);
+		return plus(int16to32);
+	}
+
+	method void plusThisInt(int other){
+		var Int32 int16to32;
+		let int16to32 = Int32.new(other);
+		do plusThis(int16to32);
+		return;
+	}
+
+	method void invert(){
+		var int i;
+		let i = 0;
+		while(i < 32){
+			let bits[i] = ~bits[i];
+			let i = i + 1;
+		}
+		return;
+	}
+
+	// method void inc(){
+	// 	let this = plusInt(1);
+	// }
+
+	method int toInt(){
+		var int i, j, toReturn, intermediate;
+		var boolean isNeg;
+		var Int32 copy;
+		var Array copyBits;
+		let toReturn = 0;
+		let copy = Int32.copyNew(bits);
+		let isNeg = false;
+		if(bits[31] = true){
+			do copy.invert();
+			do copy.plusThisInt(1);
+			let isNeg = true;
+		}
+		let copyBits = copy.getBits();
+		let i = 0;
+		while(i < 32){
+			if(copyBits[i] = -1){
+				let j = 0;
+				let intermediate = 1;
+				while(j < i){
+					let intermediate = intermediate * 2;
+					let j = j + 1;
+				}
+				let toReturn = toReturn + intermediate;
+			}
+			let i = i + 1;
+		}
+
+		if(isNeg){
+			let toReturn = toReturn * -1;
+		}
+
+		return toReturn;
+	}
+
+	method void printBits(){
+		var int i;
+		let i = 31;
+		while(i > -1){
+			do Output.printInt(bits[i]);
+			let i = i - 1;
+		}
+		do Output.println();
+		return;
 	}
 }
 

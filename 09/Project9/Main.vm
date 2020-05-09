@@ -1,4 +1,4 @@
-function Main.main 17
+function Main.main 19
 push constant 512
 push constant 2
 call Math.divide 2
@@ -34,6 +34,36 @@ pop local 15
 push local 15
 call Fraction.sinOfThis 1
 pop local 15
+push constant 27
+neg
+call Int32.new 1
+pop local 17
+push local 17
+call Int32.printBits 1
+pop temp 0
+push constant 19
+neg
+call Int32.new 1
+pop local 18
+push local 18
+call Int32.printBits 1
+pop temp 0
+push local 18
+push local 17
+call Int32.plus 2
+pop local 18
+push local 18
+call Int32.printBits 1
+pop temp 0
+push local 18
+call Int32.toInt 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 18
+call Int32.printBits 1
+pop temp 0
 label WHILE_EXP0
 push constant 0
 not
@@ -95,17 +125,11 @@ push local 11
 call Fraction.mult 2
 pop local 16
 push local 16
-call Fraction.print 1
-pop temp 0
-push local 16
 call Fraction.reduce 1
 pop temp 0
 push local 16
 call Fraction.sinOfThis 1
 pop local 16
-push local 16
-call Fraction.print 1
-pop temp 0
 push local 16
 push local 2
 call Fraction.multInt 2
@@ -243,8 +267,8 @@ pop temp 0
 push constant 500
 call Sys.wait 1
 pop temp 0
-call Screen.clearScreen 0
-pop temp 0
+push constant 0
+return
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0

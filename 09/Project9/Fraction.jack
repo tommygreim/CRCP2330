@@ -148,7 +148,7 @@ class Fraction {
     let d = d.plus(intermediate);
     if(d.isGTE(oneHalf)){
         do d.lossyReduce(181);
-        do d.print();
+        //do d.print();
         let toReturn = d.mult(d);
         let toReturn = toReturn.multInt(16);
         let intermediate = d.multInt(-24);

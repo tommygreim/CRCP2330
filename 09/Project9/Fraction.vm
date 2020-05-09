@@ -284,7 +284,8 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push local 2
-call Fraction.print 1
+push constant 181
+call Fraction.lossyReduce 2
 pop temp 0
 push local 2
 push local 2
@@ -313,6 +314,10 @@ call Fraction.plus 2
 pop local 3
 goto IF_END0
 label IF_FALSE0
+push local 2
+push constant 181
+call Fraction.lossyReduce 2
+pop temp 0
 push local 2
 push local 2
 call Fraction.mult 2
