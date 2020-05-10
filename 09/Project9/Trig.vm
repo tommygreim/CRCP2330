@@ -3783,15 +3783,13 @@ push temp 0
 pop that 0
 push constant 0
 return
-function Trig.sine 1
+function Trig.sine 0
 push argument 0
 push static 0
 add
 pop pointer 1
 push that 0
 call Fraction.copyNew 1
-pop local 0
-push local 0
 return
 function Trig.cosine 0
 push argument 0
@@ -3818,17 +3816,6 @@ label IF_TRUE1
 push constant 0
 pop argument 0
 label IF_FALSE1
-push argument 0
-call Output.printInt 1
-pop temp 0
-push constant 2
-call String.new 1
-push constant 44
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-call Output.printString 1
-pop temp 0
 push argument 0
 call Trig.sine 1
 return

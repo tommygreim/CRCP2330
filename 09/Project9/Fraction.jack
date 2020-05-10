@@ -122,9 +122,7 @@ class Fraction {
   }
 
   method Fraction multInt(int other){
-    var int newNum;
-    let newNum = numerator * other;
-    return Fraction.new(newNum, denominator);
+    return Fraction.new(numerator * other, denominator);
   }
 
   method void multIntThis(int other){
@@ -140,9 +138,7 @@ class Fraction {
   }
 
   method int floor(){
-  	var int theFloor;
-  	let theFloor = numerator / denominator;
-  	return theFloor;
+  	return numerator / denominator;
   }
 
   //Gets the additive inverse of this fraction

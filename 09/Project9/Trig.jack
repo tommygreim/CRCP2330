@@ -368,9 +368,7 @@ class Trig {
 	}
 
 	function Fraction sine(int deg){
-		var Fraction temp;
-		let temp = Fraction.copyNew(sinValues[deg]);
-		return temp;
+		return Fraction.copyNew(sinValues[deg]);
 	}
 
 	function Fraction cosine(int deg){
@@ -381,7 +379,7 @@ class Trig {
 		if(deg = 360){
 			let deg = 0;
 		}
-		do Output.printInt(deg); do Output.printString(", ");
+		// do Output.printInt(deg); do Output.printString(", ");
 		return Trig.sine(deg);
 	}
 

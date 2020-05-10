@@ -208,14 +208,12 @@ call Fraction.new 2
 pop local 0
 push local 0
 return
-function Fraction.multInt 1
+function Fraction.multInt 0
 push argument 0
 pop pointer 0
 push this 0
 push argument 1
 call Math.multiply 2
-pop local 0
-push local 0
 push this 1
 call Fraction.new 2
 return
@@ -243,14 +241,12 @@ call Fraction.mult 2
 pop local 1
 push local 1
 return
-function Fraction.floor 1
+function Fraction.floor 0
 push argument 0
 pop pointer 0
 push this 0
 push this 1
 call Math.divide 2
-pop local 0
-push local 0
 return
 function Fraction.addInv 1
 push argument 0
