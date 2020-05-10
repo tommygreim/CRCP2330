@@ -1,4 +1,6 @@
 function Main.main 17
+call Trig.populateSine 0
+pop temp 0
 push constant 17
 call Output.printInt 1
 pop temp 0
@@ -18,7 +20,7 @@ push constant 10
 pop local 3
 push constant 175
 push constant 10000
-call Fraction32.new 2
+call Fraction.new 2
 pop local 11
 push constant 21
 call Output.printInt 1
@@ -27,32 +29,25 @@ call Output.println 0
 pop temp 0
 push constant 0
 push constant 1
-call Fraction32.new 2
+call Fraction.new 2
 pop local 12
 push constant 120
 push constant 1
-call Fraction32.new 2
+call Fraction.new 2
 pop local 13
 push constant 240
 push constant 1
-call Fraction32.new 2
+call Fraction.new 2
 pop local 14
 push constant 7
 push constant 40
-call Fraction32.new 2
+call Fraction.new 2
 pop local 15
-push local 13
-push local 14
-call Fraction32.mul 2
-pop local 13
 push constant 27
 call Output.printInt 1
 pop temp 0
 call Output.println 0
 pop temp 0
-push local 15
-call Fraction32.sinOfThis 1
-pop local 15
 push constant 32
 call Output.printInt 1
 pop temp 0
@@ -65,18 +60,18 @@ not
 if-goto WHILE_END0
 push local 12
 push local 3
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 12
 push local 13
 push local 3
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 13
 push local 14
 push local 3
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 14
 push local 12
-call Fraction32.floor 1
+call Fraction.floor 1
 push constant 360
 gt
 if-goto IF_TRUE0
@@ -85,11 +80,11 @@ label IF_TRUE0
 push local 12
 push constant 360
 neg
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 12
 label IF_FALSE0
 push local 13
-call Fraction32.floor 1
+call Fraction.floor 1
 push constant 360
 gt
 if-goto IF_TRUE1
@@ -98,11 +93,11 @@ label IF_TRUE1
 push local 13
 push constant 360
 neg
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 13
 label IF_FALSE1
 push local 14
-call Fraction32.floor 1
+call Fraction.floor 1
 push constant 360
 gt
 if-goto IF_TRUE2
@@ -111,7 +106,7 @@ label IF_TRUE2
 push local 14
 push constant 360
 neg
-call Fraction32.plusInt 2
+call Fraction.plusInt 2
 pop local 14
 label IF_FALSE2
 push constant 50
@@ -120,131 +115,84 @@ pop temp 0
 call Output.println 0
 pop temp 0
 push local 12
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.sinOfThis 1
+call Trig.sine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 0
 add
 pop local 4
-push constant 62
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
 push local 12
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.cosOfThis 1
+call Trig.cosine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 1
 add
 pop local 7
 push local 13
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.sinOfThis 1
+call Trig.sine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 0
 add
 pop local 5
 push local 13
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.cosOfThis 1
+call Trig.cosine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 1
 add
 pop local 8
 push local 14
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.sinOfThis 1
+call Trig.sine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 0
 add
 pop local 6
 push local 14
-push local 11
-call Fraction32.mul 2
-pop local 16
-push local 16
-call Fraction32.reduce 1
-pop temp 0
-push local 16
-call Fraction32.cosOfThis 1
+call Trig.cosine 1
 pop local 16
 push local 16
 push local 2
-call Fraction32.mulInt 2
+call Fraction.multInt 2
 pop local 16
 push local 16
-call Fraction32.floor16 1
+call Fraction.floor 1
 pop local 10
 push local 10
 push local 1
