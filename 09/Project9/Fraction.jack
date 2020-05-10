@@ -17,7 +17,7 @@ class Fraction {
 
    // Reduces this fraction.
    method void reduce() {
-      var int g;
+      var Int32 g;
       let g = Fraction.gcd(numerator, denominator);
       if (g > 1) {
          let numerator = numerator / g;
@@ -46,10 +46,9 @@ class Fraction {
       return;
    }
 
-
-   /** Accessors. */
+    /** Accessors. */
    method int getNumerator() { return numerator; }
-   method int getDenominator() { return denominator; }  
+   method int getDenominator() { return denominator; }
 
    /** Returns the sum of this fraction and the other one. */
    method Fraction plus(Fraction other) {
@@ -193,7 +192,7 @@ class Fraction {
       return;
    }
 
-   // Computes the greatest common divisor of the given integers.
+      // Computes the greatest common divisor of the given integers.
    function int gcd(int a, int b) {
       var int r;
       while (~(b = 0)) {             // applies Euclid's algorithm

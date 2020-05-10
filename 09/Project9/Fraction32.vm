@@ -1,0 +1,401 @@
+function Fraction32.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Int32.new 1
+pop this 0
+push argument 1
+call Int32.new 1
+pop this 1
+push pointer 0
+call Fraction32.reduce 1
+pop temp 0
+push pointer 0
+return
+function Fraction32.new32 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Int32.copyNew 1
+pop this 0
+push argument 1
+call Int32.copyNew 1
+pop this 1
+push pointer 0
+call Fraction32.reduce 1
+pop temp 0
+push pointer 0
+return
+function Fraction32.reduce 2
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Fraction32.gcd 2
+pop local 0
+push local 0
+push constant 2
+call Int32.plusInt 2
+pop local 1
+push local 1
+call Int32.negative 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push local 0
+call Int32.div 2
+pop this 0
+push this 1
+push local 0
+call Int32.div 2
+pop this 1
+label IF_FALSE0
+push constant 0
+return
+function Fraction32.getNumerator 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Fraction32.getDenominator 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Fraction32.plus 5
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Fraction.getDenominator 1
+call Int32.mul 2
+pop local 2
+push this 1
+push argument 1
+call Fraction.getNumerator 1
+call Int32.mul 2
+pop local 3
+push local 2
+push local 3
+call Int32.plus 2
+pop local 1
+push this 1
+push argument 1
+call Fraction.getDenominator 1
+call Int32.mul 2
+pop local 4
+push local 1
+push local 4
+call Fraction32.new 2
+pop local 0
+push local 0
+return
+function Fraction32.plusInt 3
+push argument 0
+pop pointer 0
+push argument 1
+call Int32.new 1
+pop local 0
+push constant 1
+call Int32.new 1
+pop local 1
+push local 0
+push local 1
+call Fraction32.new32 2
+pop local 2
+push pointer 0
+push local 2
+call Fraction32.plus 2
+return
+function Fraction32.isGTE 3
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Fraction32.getDenominator 1
+call Int32.mul 2
+pop local 1
+push this 1
+push argument 1
+call Fraction32.getNumerator 1
+call Int32.mul 2
+pop local 2
+push local 1
+push local 2
+call Int32.gte 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return
+function Fraction32.mul 3
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Fraction32.getNumerator 1
+call Int32.mul 2
+pop local 1
+push this 1
+push argument 1
+call Fraction32.getDenominator 1
+call Int32.mul 2
+pop local 2
+push local 1
+push local 2
+call Fraction32.new32 2
+pop local 0
+push local 0
+return
+function Fraction32.mulInt 1
+push argument 0
+pop pointer 0
+push argument 1
+call Int32.new 1
+pop local 0
+push local 0
+push this 0
+call Int32.mul 2
+pop local 0
+push local 0
+push this 1
+call Fraction32.new32 2
+return
+function Fraction32.div 2
+push argument 0
+pop pointer 0
+push argument 1
+call Fraction32.getDenominator 1
+push argument 1
+call Fraction32.getNumerator 1
+call Fraction32.new32 2
+pop local 0
+push pointer 0
+push local 0
+call Fraction32.mul 2
+pop local 1
+push local 1
+return
+function Fraction32.floor 1
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Int32.div 2
+pop local 0
+push local 0
+return
+function Fraction32.floor16 1
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Int32.div 2
+pop local 0
+push local 0
+call Int32.toInt 1
+return
+function Fraction32.addInv 0
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 1
+neg
+call Fraction32.mulInt 2
+return
+function Fraction32.sinOfThis 7
+push argument 0
+pop pointer 0
+push constant 50
+push constant 314
+call Fraction32.new 2
+pop local 0
+push constant 1
+push constant 2
+call Fraction32.new 2
+pop local 1
+push pointer 0
+push local 0
+call Fraction32.mul 2
+pop local 2
+push local 2
+call Fraction32.print 1
+pop temp 0
+push local 2
+call Fraction32.floor 1
+pop local 5
+push local 5
+call Int32.printBits 1
+pop temp 0
+push local 5
+call Int32.negate 1
+pop local 5
+push constant 5164
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 1
+call Int32.new 1
+pop local 6
+push local 5
+push local 6
+call Fraction32.new 2
+pop local 4
+push local 2
+push local 4
+call Fraction32.plus 2
+pop local 2
+push constant 5171
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 2
+push local 1
+call Fraction32.isGTE 2
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 5176
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 2
+push local 2
+call Fraction32.mul 2
+pop local 3
+push local 3
+push constant 16
+call Fraction32.mulInt 2
+pop local 3
+push local 2
+push constant 24
+neg
+call Fraction32.mulInt 2
+pop local 4
+push local 3
+push local 4
+call Fraction32.plus 2
+pop local 3
+push constant 5176
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 8
+push constant 1
+call Fraction32.new 2
+pop local 4
+push local 3
+push local 4
+call Fraction32.plus 2
+pop local 3
+goto IF_END0
+label IF_FALSE0
+push local 2
+push local 2
+call Fraction32.mul 2
+pop local 3
+push local 3
+push constant 16
+neg
+call Fraction32.mulInt 2
+pop local 3
+push constant 5184
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 2
+push constant 8
+call Fraction32.mulInt 2
+pop local 4
+push local 3
+push local 4
+call Fraction32.plus 2
+pop local 3
+label IF_END0
+push local 3
+return
+function Fraction32.cosOfThis 2
+push argument 0
+pop pointer 0
+push constant 314
+push constant 200
+call Fraction32.new 2
+pop local 0
+push pointer 0
+push local 0
+call Fraction32.plus 2
+pop local 0
+push local 0
+call Fraction32.sinOfThis 1
+pop local 1
+push local 1
+return
+function Fraction32.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Int32.dispose 1
+pop temp 0
+push this 1
+call Int32.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Fraction32.print 0
+push argument 0
+pop pointer 0
+push this 0
+call Int32.toInt 1
+call Output.printInt 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 47
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push this 1
+call Int32.toInt 1
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push constant 0
+return
+function Fraction32.gcd 1
+label WHILE_EXP0
+push argument 1
+call Int32.zero 1
+not
+not
+if-goto WHILE_END0
+push argument 0
+push argument 1
+call Int32.mod 2
+pop local 0
+push argument 1
+call Int32.copyNew 1
+pop argument 0
+push local 0
+call Int32.copyNew 1
+pop argument 1
+goto WHILE_EXP0
+label WHILE_END0
+push argument 0
+return

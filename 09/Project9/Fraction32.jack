@@ -1,0 +1,238 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/09/Fraction/Fraction.jack
+
+/** Represents the Fraction type and related operations. */
+class Fraction32 {
+   field Int32 numerator, denominator;  // field = property = member variable.
+  
+   /** Constructs a (reduced) fraction from the given numerator and denominator. */
+   constructor Fraction32 new(int x, int y) {
+      let numerator = Int32.new(x);
+      let denominator = Int32.new(y);
+      do reduce();   // reduces the fraction
+      return this;   // a constructor is expected to return a reference to the new object
+   }
+
+   constructor Fraction32 new32(Int32 x, Int32 y) {
+      let numerator = Int32.copyNew(x);
+      let denominator = Int32.copyNew(y);
+      do reduce();   // reduces the fraction
+      return this;   // a constructor is expected to return a reference to the new object
+   }
+
+   // Reduces this fraction.
+   method void reduce() {
+      var Int32 g, gPlusTwo;
+      let g = Fraction32.gcd(numerator, denominator);
+      let gPlusTwo = g.plusInt(2);
+      if (~gPlusTwo.negative()) {
+         let numerator = numerator.div(g);
+         let denominator = denominator.div(g);
+      }
+      return;
+   }
+
+   //Reduces this fraction to avoid overflow. Introduces imprecision
+   // method void lossyReduce(int limit) {
+   //    do reduce();
+   //    while(numerator > limit){
+   //        if(denominator / 2 = 0){
+   //          return;
+   //        }
+   //        let numerator = numerator / 2;
+   //        let denominator = denominator / 2;
+   //    }
+   //    while(denominator > limit){
+   //        if(denominator / 2 = 0){
+   //          return;
+   //        }
+   //        let numerator = numerator / 2;
+   //        let denominator = denominator / 2;
+   //    }
+   //    return;
+   // }
+
+      /** Accessors. */
+   method Int32 getNumerator() { return numerator; }
+   method Int32 getDenominator() { return denominator; } 
+
+      /** Returns the sum of this fraction and the other one. */
+   method Fraction32 plus(Fraction other) {
+    var Fraction32 toReturn;
+      var Int32 sum, term1, term2, newDenom;
+      // do lossyReduce(2);
+      // do other.lossyReduce(2);
+      // do Output.println();
+      // do print();
+      // do other.print();
+      // do Output.println();
+      let term1 = numerator.mul(other.getDenominator());
+      let term2 = denominator.mul(other.getNumerator());
+      let sum = term1.plus(term2);
+      let newDenom = denominator.mul(other.getDenominator());
+      let toReturn = Fraction32.new(sum, newDenom);
+      // do toReturn.lossyReduce(2);
+      return toReturn;
+   }
+
+   method Fraction32 plusInt(int other){
+      var Int32 int16to32, one;
+      var Fraction32 intToFrac;
+      let int16to32 = Int32.new(other);
+      let one = Int32.new(1);
+      let intToFrac = Fraction32.new32(int16to32, one);
+      return plus(intToFrac);
+   }
+
+   //A more impercise version of plus for values that approach the 16 bit limit
+   // method Fraction bigPlus(Fraction other){
+   //    var Fraction reduced;
+   //    let reduced = Fraction.new(numerator / 2, denominator / 2);
+   //    return reduced.plus(other);
+   // }
+
+   //Comparison Operators
+
+   //Returns true if greater than or equal to
+   method boolean isGTE(Fraction32 other){
+      var boolean toReturn;
+      var Int32 thisProduct, otherProduct;
+      let thisProduct = numerator.mul(other.getDenominator());
+      let otherProduct = denominator.mul(other.getNumerator());
+      if(thisProduct.gte(otherProduct)){
+        return true;
+      }
+      return false;
+   }
+
+   // More fraction-related methods (minus, times, div, etc.) can be added here.
+  
+  method Fraction32 mul(Fraction32 other){
+    var Fraction32 toReturn;
+  	var Int32 newNum, newDenom;
+    // do lossyReduce(2);
+    // do other.lossyReduce(2);
+  	let newNum = numerator.mul(other.getNumerator());
+  	let newDenom = denominator.mul(other.getDenominator());
+  	let toReturn = Fraction32.new32(newNum, newDenom);
+    //do toReturn.lossyReduce(2);
+    return toReturn;
+  }
+
+  method Fraction32 mulInt(int other){
+    var Int32 newNum;
+    let newNum = Int32.new(other);
+    let newNum = newNum.mul(numerator);
+    return Fraction32.new32(newNum, denominator);
+  }
+
+    method Fraction32 div(Fraction32 other){
+    var Fraction32 multInv, toReturn;
+    let multInv = Fraction32.new32(other.getDenominator(), other.getNumerator());
+    let toReturn = mul(multInv);
+    return toReturn;
+  }
+
+  method Int32 floor(){
+  	var Int32 theFloor;
+  	let theFloor = numerator.div(denominator);
+  	return theFloor;
+  }
+
+   method int floor16(){
+    var Int32 theFloor;
+    let theFloor = numerator.div(denominator);
+    return theFloor.toInt();
+  }
+
+  //Gets the additive inverse of this fraction
+  method Fraction32 addInv(){
+    return mulInt(-1);
+  }
+
+  //Approximations of Trig Functions
+  method Fraction32 sinOfThis(){
+    var Fraction32 invTwoPi, oneHalf, d, toReturn, interFrac1;
+    var Int32 interInt1, interInt2;
+    let invTwoPi = Fraction32.new(50, 314);
+    let oneHalf = Fraction32.new(1, 2);
+    let d = mul(invTwoPi);
+    do d.print();
+    let interInt1 = d.floor();
+    do interInt1.printBits();
+    let interInt1 = interInt1.negate();
+    do Output.printInt(5164);
+    do Output.println();
+    let interInt2 = Int32.new(1);
+    let interFrac1 = Fraction32.new(interInt1, interInt2);
+    let d = d.plus(interFrac1);
+    do Output.printInt(5171);
+    do Output.println();
+    if(d.isGTE(oneHalf)){
+        //do d.lossyReduce(181);
+        //do d.print();
+        do Output.printInt(5176);
+        do Output.println();
+        let toReturn = d.mul(d);
+        let toReturn = toReturn.mulInt(16);
+        let interFrac1 = d.mulInt(-24);
+        let toReturn = toReturn.plus(interFrac1);
+        do Output.printInt(5176);
+        do Output.println();
+        let interFrac1 = Fraction32.new(8,1);
+        let toReturn = toReturn.plus(interFrac1);
+    }
+    else {
+        //do d.lossyReduce(181);
+        let toReturn = d.mul(d);
+        let toReturn = toReturn.mulInt(-16);
+        do Output.printInt(5184);
+        do Output.println();
+        let interFrac1 = d.mulInt(8);
+        let toReturn = toReturn.plus(interFrac1);
+    }
+    //do toReturn.reduce();
+    return toReturn;
+  }
+
+  method Fraction32 cosOfThis(){
+    var Fraction32 intermediate, toReturn;
+    let intermediate = Fraction32.new(314, 200);
+    // do intermediate.print();
+    let intermediate = plus(intermediate);
+    // do print();
+    // do intermediate.print();
+    let toReturn = intermediate.sinOfThis();
+    return toReturn;
+  }
+
+   /** Disposes this fraction. */
+   method void dispose() {
+      do numerator.dispose();
+      do denominator.dispose();
+      do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
+      return;
+   }
+   
+   /** Prints this fraction in the format x/y. */
+   method void print() {
+      do Output.printInt(numerator.toInt());
+      do Output.printString("/");
+      do Output.printInt(denominator.toInt());
+      do Output.println();
+      return;
+   }
+
+      // Computes the greatest common divisor of the given integers.
+   function Int32 gcd(Int32 a, Int32 b) {
+      var Int32 r;
+      while (~b.zero()) {             // applies Euclid's algorithm
+         let r = a.mod(b);  // r = remainder of the integer division a/b
+         let a = Int32.copyNew(b);
+         let b = Int32.copyNew(r);
+      }
+      return a;
+   }
+}

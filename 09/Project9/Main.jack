@@ -12,27 +12,32 @@
 class Main {
    function void main() {
   		var int centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt;
-  		var Fraction radConst, ang1, ang2, ang3, sinTest, intermediate;
-  		var Int32 test1, test2, test3;
+  		var Fraction32 radConst, ang1, ang2, ang3, sinTest, intermediate;
+  		//var Fraction32 test1, test2, test3;
+		do Output.printInt(17);
+		do Output.println();
   		let centerX = 512 / 2;
   		let centerY = 256 / 2;
   		let radius = 25;
   		let deltaTheta = 10; //Change in angle per frame in degrees
-		let radConst = Fraction.new(175,10000);
-		let ang1 = Fraction.new(0,1);
-		let ang2 = Fraction.new(120,1);
-		let ang3 = Fraction.new(240,1);
-		let sinTest = Fraction.new(7,40);
+		let radConst = Fraction32.new(175,10000);
+		do Output.printInt(21);
+		do Output.println();
+		let ang1 = Fraction32.new(0,1);
+		let ang2 = Fraction32.new(120,1);
+		let ang3 = Fraction32.new(240,1);
+		let sinTest = Fraction32.new(7,40);
+		let ang2 = ang2.mul(ang3);
+		do Output.printInt(27);
+		do Output.println();
 		let sinTest = sinTest.sinOfThis();
 		//do sinTest.print();
-		let test1 = Int32.new(-27);
-		do test1.printBits();
-		let test2 = Int32.new(4);
-		do test2.printBits();
-		let test3 = test1.mul(test2);
-		do Output.printInt(test3.toInt());
+		//let test1 = Fraction32.new(175,1200);
+		//do test1.print();
 
 
+		do Output.printInt(32);
+		do Output.println();
 		while(true){
 			let ang1 = ang1.plusInt(deltaTheta);
 			let ang2 = ang2.plusInt(deltaTheta);
@@ -49,50 +54,56 @@ class Main {
 				let ang3 = ang3.plusInt(-360);
 			}
 
-			let intermediate = ang1.mult(radConst);
+			do Output.printInt(50);
+			do Output.println();
+
+			let intermediate = ang1.mul(radConst);
 			//do intermediate.print();
 			do intermediate.reduce();
 			let intermediate = intermediate.sinOfThis();
 			//do intermediate.print();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let x1 = interInt + centerX;
 
-			let intermediate = ang1.mult(radConst);
+			do Output.printInt(62);
+			do Output.println();
+
+			let intermediate = ang1.mul(radConst);
 			do intermediate.reduce();
 			let intermediate = intermediate.cosOfThis();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let y1 = interInt + centerY;
 
 
-			let intermediate = ang2.mult(radConst);
+			let intermediate = ang2.mul(radConst);
 			do intermediate.reduce();
 			let intermediate = intermediate.sinOfThis();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let x2 = interInt + centerX;
 
-			let intermediate = ang2.mult(radConst);
+			let intermediate = ang2.mul(radConst);
 			do intermediate.reduce();
 			let intermediate = intermediate.cosOfThis();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let y2 = interInt + centerY;
 
 
-			let intermediate = ang3.mult(radConst);
+			let intermediate = ang3.mul(radConst);
 			do intermediate.reduce();
 			let intermediate = intermediate.sinOfThis();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let x3 = interInt + centerX;
 
-			let intermediate = ang3.mult(radConst);
+			let intermediate = ang3.mul(radConst);
 			do intermediate.reduce();
 			let intermediate = intermediate.cosOfThis();
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			let intermediate = intermediate.mulInt(radius);
+			let interInt = intermediate.floor16();
 			let y3 = interInt + centerY;
 
 			do Screen.drawLine(x1, y1, x2, y2);

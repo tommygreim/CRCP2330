@@ -37,12 +37,25 @@ class Int32{
 	}
 
 
-	constructor Int32 copyNew(Array otherBits){
+	constructor Int32 bitNew(Array otherBits){
 		var int i;
 		let bits = Array.new(32);
 		let i = 0;
 		while(i < 32){
 			let bits[i] = otherBits[i];
+			let i = i + 1;
+		}
+		return this;
+	}
+
+	constructor Int32 copyNew(Int32 other){
+		var Array bitCopy;
+		var int i;
+		let bitCopy = other.getBits();
+		let bits = Array.new(32);
+		let i = 0;
+		while(i < 32){
+			let bits[i] = bitCopy[i];
 			let i = i + 1;
 		}
 		return this;
@@ -57,6 +70,84 @@ class Int32{
 			return true;
 		}
 		return false;
+	}
+
+	method boolean zero(){
+		var int i;
+		let i = 0;
+		while(i < 32){
+			if(bits[i] = true){
+				return false;
+			}
+			let i = i + 1;
+		}
+		return true;
+	}
+
+	method boolean gte(Int32 other){
+		var Int32 difference;
+		let difference = other.negate();
+		let difference = plus(difference);
+		if(difference.negative()){
+			return false;
+		}
+		return true;
+	}
+
+	method boolean eq(Int32 other){
+		var Array otherBits;
+		var int i;
+		let otherBits = other.getBits();
+		while(i < 32){
+			if(~(bits[i] = otherBits[i])){
+				return false;
+			}
+		}
+		return true;
+
+	}
+
+	// method boolean trueAtN(int n){
+	// 	var Int32 temp;
+	// 	var boolean toReturn;
+	// 	let temp = and(twoPowers[n]);
+	// 	let toReturn = temp.zero();
+	// 	let toReturn = ~toReturn;
+	// 	return toReturn;
+	// }
+
+	method Int32 negate(){
+		var Int32 safeCopy;
+		let safeCopy = Int32.bitNew(bits);
+		do safeCopy.invert();
+		do safeCopy.plusThisInt(1);
+		return safeCopy;
+	}
+
+
+	//Peforms a bitwise and
+	method Int32 and(Int32 other){
+		var Int32 toReturn;
+		var Array newBits, otherBits;
+		var int i;
+		let newBits = Array.new(32);
+		let otherBits = other.getBits();
+		while(i < 32){
+			if(bits[i] = true){
+				if(otherBits[i] = true){
+					let newBits[i] = true;
+				}
+				else{
+					let newBits[i] = false;
+				}
+			}
+			else {
+				let newBits[i] = false;
+			}
+		}
+		let toReturn = Int32.bitNew(newBits);
+		do newBits.dispose();
+		return toReturn;
 	}
 
 
@@ -93,7 +184,8 @@ class Int32{
 			let i = i + 1;
 		}
 
-		let toReturn = Int32.copyNew(newBits);
+		let toReturn = Int32.bitNew(newBits);
+		do newBits.dispose();
 		return toReturn;
 	}
 
@@ -101,8 +193,8 @@ class Int32{
 		var Int32 thisCopy, otherCopy, toReturn, i;
 		var boolean resultNeg;
 		//Copies to avoid overriding the originals
-		let thisCopy = Int32.copyNew(bits);
-		let otherCopy = Int32.copyNew(other.getBits());
+		let thisCopy = Int32.bitNew(bits);
+		let otherCopy = Int32.bitNew(other.getBits());
 		//Check if either number is negative
 		//If the dividend is negative, negate it.
 		// If the divisor is positive, negate it.
@@ -134,6 +226,7 @@ class Int32{
 		while(~i.negative()){
 			do thisCopy.plusThis(otherCopy);
 			do toReturn.plusThisInt(1);
+			do i.dispose();
 			let i = thisCopy.plus(otherCopy);
 		}
 
@@ -141,16 +234,85 @@ class Int32{
 			do toReturn.invert();
 			do toReturn.plusThisInt(1);
 		}
-
+		do thisCopy.dispose();
+		do otherCopy.dispose();
+		do i.dispose();
 		return toReturn;
+	}
+
+
+	//This is just the division method with thisCopy returned instead of toReturn
+	method Int32 mod(Int32 other){
+		var Int32 thisCopy, otherCopy, toReturn, i;
+		var boolean resultNeg;
+		//Copies to avoid overriding the originals
+		let thisCopy = Int32.bitNew(bits);
+		let otherCopy = Int32.bitNew(other.getBits());
+		//Check if either number is negative
+		//If the dividend is negative, negate it.
+		// If the divisor is positive, negate it.
+		if(negative()){
+			if(other.negative()){
+				let resultNeg = false;
+			}
+			else {
+				let resultNeg = true;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+			do thisCopy.invert();
+			do thisCopy.plusThisInt(1);
+		}
+		else{
+			if(other.negative()){
+				let resultNeg = true;
+			}
+			else {
+				let resultNeg = false;
+				do otherCopy.invert();
+				do otherCopy.plusThisInt(1);
+			}
+		}
+		
+		let toReturn = Int32.new(0);
+		let i = thisCopy.plus(otherCopy);
+		while(~i.negative()){
+			do thisCopy.plusThis(otherCopy);
+			do toReturn.plusThisInt(1);
+			do i.dispose();
+			let i = thisCopy.plus(otherCopy);
+		}
+
+		if(resultNeg){
+			do thisCopy.invert();
+			do thisCopy.plusThisInt(1);
+		}
+
+		do otherCopy.dispose();
+		do i.dispose();
+		do toReturn.dispose();
+
+		return thisCopy;
 	}
 
 	method Int32 mul(Int32 other){
 		var Int32 thisCopy, otherCopy, toReturn;
 		var boolean resultNeg;
+		do printBits();
+		do other.printBits();
 		let toReturn = Int32.new(0);
-		let thisCopy = Int32.copyNew(bits);
-		let otherCopy = Int32.copyNew(other.getBits());
+		let thisCopy = Int32.bitNew(bits);
+		let otherCopy = Int32.bitNew(other.getBits());
+		if(zero()){
+			do Output.printInt(1248);
+    		do Output.println();
+			return toReturn;
+
+		}
+		if(other.zero()){
+			return toReturn;
+		}
+
 		if(negative()){
 			if(other.negative()){
 				let resultNeg = false;
@@ -175,26 +337,31 @@ class Int32{
 		}
 		//I have no method for check if a number is greater than or equal to 0, but I do have one that checks if it's negative. And, if I decrement other by 1, it should essentially function the same.
 		do otherCopy.plusThisInt(-1);
-		do thisCopy.printBits();
+		//do thisCopy.printBits();
 		while(~otherCopy.negative()){
 			do toReturn.plusThis(thisCopy);
 			do otherCopy.plusThisInt(-1);
 		}
 
+		do Output.printInt(1288);
+    	do Output.println();
+
 		if(resultNeg){
 			do toReturn.invert();
 			do toReturn.plusThisInt(1);
 		}
-
 		return toReturn;
 	}
+
+
+
+
 
 	//For adding and storing the result in this
 	method void plusThis(Int32 other){
 		var Array newBits, interThis, interOther;
 		var bool carry;
 		var int i, immediateSum;
-		let newBits = Array.new(32);
 		//let intermediate = Array.new(32);
 		let carry = false;
 		let interThis = bits;
@@ -228,14 +395,22 @@ class Int32{
 	method Int32 plusInt(int other){
 		var Int32 int16to32;
 		let int16to32 = Int32.new(other);
-		return plus(int16to32);
+		let int16to32 = plus(int16to32);
+		return int16to32;
 	}
 
 	method void plusThisInt(int other){
 		var Int32 int16to32;
 		let int16to32 = Int32.new(other);
 		do plusThis(int16to32);
+		do int16to32.dispose();
 		return;
+	}
+
+	method Int32 mulInt(int other){
+		var Int32 int16to32;
+		let int16to32 = Int32.new(other);
+		return mul(int16to32);
 	}
 
 	method void invert(){
@@ -268,7 +443,7 @@ class Int32{
 			let i = i + 1;
 			let shifts = shifts + 1;
 		}
-		let toReturn = Int32.copyNew(shiftedBits);
+		let toReturn = Int32.bitNew(shiftedBits);
 		return toReturn;
 	}
 
@@ -284,7 +459,7 @@ class Int32{
 		var Int32 copy;
 		var Array copyBits;
 		let toReturn = 0;
-		let copy = Int32.copyNew(bits);
+		let copy = Int32.bitNew(bits);
 		let isNeg = false;
 		if(bits[31] = true){
 			do copy.invert();
@@ -317,12 +492,18 @@ class Int32{
 		var int i;
 		let i = 31;
 		while(i > -1){
-			do Output.printInt(bits[i]);
+			do Output.printInt(bits[i] * -1);
 			let i = i - 1;
 		}
 		do Output.println();
 		return;
 	}
+
+	method void dispose(){
+        do bits.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
 }
 
 // /******************************************************************************
