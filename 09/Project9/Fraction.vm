@@ -208,7 +208,7 @@ call Fraction.new 2
 pop local 0
 push local 0
 return
-function Fraction.multInt 2
+function Fraction.multInt 1
 push argument 0
 pop pointer 0
 push this 0
