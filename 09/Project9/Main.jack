@@ -11,8 +11,8 @@
       // do c.print();       // Prints "2/15"
 class Main {
    function void main() {
-  		var int centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt;
-  		var Fraction radConst, ang1, ang2, ang3, sinTest, intermediate;
+  		var int ang1, ang2, ang3, centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt;
+  		var Fraction radConst,sinTest, intermediate;
   		do Trig.populateSine();
   		//var Fraction32 test1, test2, test3;
 		do Output.printInt(17);
@@ -24,9 +24,9 @@ class Main {
 		let radConst = Fraction.new(175,10000);
 		do Output.printInt(21);
 		do Output.println();
-		let ang1 = Fraction.new(0,1);
-		let ang2 = Fraction.new(120,1);
-		let ang3 = Fraction.new(240,1);
+		let ang1 = 0;
+		let ang2 = 120;
+		let ang3 = 240;
 		let sinTest = Fraction.new(7,40);
 		do Output.printInt(27);
 		do Output.println();
@@ -38,19 +38,19 @@ class Main {
 		do Output.printInt(32);
 		do Output.println();
 		while(true){
-			let ang1 = ang1.plusInt(deltaTheta);
-			let ang2 = ang2.plusInt(deltaTheta);
-			let ang3 = ang3.plusInt(deltaTheta);
+			let ang1 = ang1 + deltaTheta;
+			let ang2 = ang2 + deltaTheta;
+			let ang3 = ang3 + deltaTheta;
 
 
-			if(ang1.floor() > 360){
-				let ang1 = ang1.plusInt(-360);
+			if(ang1 > 360){
+				let ang1 = ang1 - 360;
 			}
-			if(ang2.floor() > 360){
-				let ang2 = ang2.plusInt(-360);
+			if(ang2 > 360){
+				let ang2 = ang2 - 360;
 			}
-			if(ang3.floor() > 360){
-				let ang3 = ang3.plusInt(-360);
+			if(ang3 > 360){
+				let ang3 = ang3 - 360;
 			}
 
 			do Output.printInt(50);
@@ -58,6 +58,7 @@ class Main {
 
 			let intermediate = Trig.sine(ang1);
 			let intermediate = intermediate.multInt(radius);
+    		do Output.println();
 			let interInt = intermediate.floor();
 			let x1 = interInt + centerX;
 

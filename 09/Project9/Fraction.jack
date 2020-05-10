@@ -11,13 +11,13 @@ class Fraction {
    constructor Fraction new(int x, int y) {
       let numerator = x;
       let denominator = y;
-      do reduce();   // reduces the fraction
+      //do reduce();   // reduces the fraction
       return this;   // a constructor is expected to return a reference to the new object
    }
 
    // Reduces this fraction.
    method void reduce() {
-      var Int32 g;
+      var int g;
       let g = Fraction.gcd(numerator, denominator);
       if (g > 1) {
          let numerator = numerator / g;
