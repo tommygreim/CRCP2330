@@ -1,4 +1,8 @@
-
+//
+//
+//    CLASS IS NOT USED IN THE CURRENT VERSION OF THIS PROGRAM. FEEL FREE TO IGNORE
+//
+//
 
 class Int32{
 	field Array bits;

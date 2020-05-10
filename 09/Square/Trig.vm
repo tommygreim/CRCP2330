@@ -1,0 +1,423 @@
+function Trig.populateSine 0
+push constant 36
+call Array.new 1
+pop static 0
+push constant 0
+push static 0
+add
+push constant 0
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push static 0
+add
+push constant 174
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push static 0
+add
+push constant 342
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push static 0
+add
+push constant 501
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push static 0
+add
+push constant 644
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push static 0
+add
+push constant 767
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 6
+push static 0
+add
+push constant 867
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 7
+push static 0
+add
+push constant 940
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 8
+push static 0
+add
+push constant 985
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 9
+push static 0
+add
+push constant 999
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 10
+push static 0
+add
+push constant 983
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 11
+push static 0
+add
+push constant 937
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 12
+push static 0
+add
+push constant 863
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 13
+push static 0
+add
+push constant 762
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 14
+push static 0
+add
+push constant 637
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 15
+push static 0
+add
+push constant 493
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 16
+push static 0
+add
+push constant 334
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 17
+push static 0
+add
+push constant 165
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 18
+push static 0
+add
+push constant 8
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 19
+push static 0
+add
+push constant 182
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 20
+push static 0
+add
+push constant 350
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 21
+push static 0
+add
+push constant 508
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 22
+push static 0
+add
+push constant 650
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 23
+push static 0
+add
+push constant 772
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 24
+push static 0
+add
+push constant 871
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 25
+push static 0
+add
+push constant 943
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 26
+push static 0
+add
+push constant 986
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 27
+push static 0
+add
+push constant 999
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 28
+push static 0
+add
+push constant 982
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 29
+push static 0
+add
+push constant 934
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 30
+push static 0
+add
+push constant 858
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 31
+push static 0
+add
+push constant 756
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 32
+push static 0
+add
+push constant 631
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 33
+push static 0
+add
+push constant 486
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 34
+push static 0
+add
+push constant 327
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 35
+push static 0
+add
+push constant 157
+neg
+push constant 1000
+call Fraction.new 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+return
+function Trig.sine 0
+push argument 0
+push constant 10
+call Math.divide 2
+pop argument 0
+push argument 0
+push static 0
+add
+pop pointer 1
+push that 0
+return
+function Trig.cosine 0
+push argument 0
+push constant 90
+add
+pop argument 0
+push argument 0
+push constant 360
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push constant 360
+sub
+pop argument 0
+label IF_FALSE0
+push argument 0
+push constant 360
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop argument 0
+label IF_FALSE1
+push argument 0
+call Trig.sine 1
+return

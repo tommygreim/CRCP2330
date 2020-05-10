@@ -11,92 +11,79 @@
       // do c.print();       // Prints "2/15"
 class Main {
    function void main() {
-  		var int ang1, ang2, ang3, centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt;
-  		var Fraction radConst,sinTest, intermediate;
+  		var int ang1, ang2, ang3, centerX, centerY, radius, deltaTheta, x1, x2, x3, y1, y2, y3, interInt, counter;
+		var Fraction intermediate, intermediate2;
   		do Trig.populateSine();
-  		//var Fraction32 test1, test2, test3;
-		do Output.printInt(17);
-		do Output.println();
   		let centerX = 512 / 2;
   		let centerY = 256 / 2;
-  		let radius = 25;
-  		let deltaTheta = 10; //Change in angle per frame in degrees
-		let radConst = Fraction.new(175,10000);
-		do Output.printInt(21);
-		do Output.println();
+  		let radius = 100;
+  		let deltaTheta = 2; //Change in angle per frame in degrees
 		let ang1 = 0;
 		let ang2 = 120;
 		let ang3 = 240;
-		let sinTest = Fraction.new(7,40);
-		do Output.printInt(27);
-		do Output.println();
-		//do sinTest.print();
-		//let test1 = Fraction32.new(175,1200);
-		//do test1.print();
 
-
-		do Output.printInt(32);
-		do Output.println();
+		let counter = 0;
 		while(true){
+			let counter = counter + 1;
+			do Output.printInt(counter);
+			do Output.println();
 			let ang1 = ang1 + deltaTheta;
 			let ang2 = ang2 + deltaTheta;
 			let ang3 = ang3 + deltaTheta;
 
 
-			if(ang1 > 360){
+			if(ang1 > 359){
 				let ang1 = ang1 - 360;
 			}
-			if(ang2 > 360){
+			if(ang2 > 359){
 				let ang2 = ang2 - 360;
 			}
-			if(ang3 > 360){
+			if(ang3 > 359){
 				let ang3 = ang3 - 360;
 			}
 
-			do Output.printInt(50);
-			do Output.println();
-
 			let intermediate = Trig.sine(ang1);
-			let intermediate = intermediate.multInt(radius);
-    		do Output.println();
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let x1 = interInt + centerX;
 
-
 			let intermediate = Trig.cosine(ang1);
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let y1 = interInt + centerY;
 
-
 			let intermediate = Trig.sine(ang2);
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let x2 = interInt + centerX;
 
-
 			let intermediate = Trig.cosine(ang2);
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let y2 = interInt + centerY;
 
 			let intermediate = Trig.sine(ang3);
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let x3 = interInt + centerX;
 
-
 			let intermediate = Trig.cosine(ang3);
-			let intermediate = intermediate.multInt(radius);
-			let interInt = intermediate.floor();
+			do intermediate.lossyReduce(30000 / radius);
+			let intermediate2 = intermediate.multInt(radius);
+			let interInt = intermediate2.floor();
 			let y3 = interInt + centerY;
 
 			do Screen.drawLine(x1, y1, x2, y2);
 			do Screen.drawLine(x2, y2, x3, y3);
 			do Screen.drawLine(x3, y3, x1, y1);
-			do Sys.wait(500);
-			//do Screen.clearScreen();
-			return;
+			do Sys.wait(16);
+			do Screen.clearScreen();
+			do Output.moveCursor(0,0);
 		}
 
 		return;

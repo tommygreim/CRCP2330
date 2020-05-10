@@ -28,7 +28,6 @@ class Fraction {
 
    //Reduces this fraction to avoid overflow. Introduces imprecision
    method void lossyReduce(int limit) {
-      do reduce();
       while(numerator > limit){
           if(denominator / 2 = 0){
             return;
@@ -36,13 +35,20 @@ class Fraction {
           let numerator = numerator / 2;
           let denominator = denominator / 2;
       }
-      while(denominator > limit){
+      while(numerator < (limit * -1)){
           if(denominator / 2 = 0){
             return;
           }
           let numerator = numerator / 2;
           let denominator = denominator / 2;
       }
+      // while(denominator > limit){
+      //     if(denominator / 2 = 0){
+      //       return;
+      //     }
+      //     let numerator = numerator / 2;
+      //     let denominator = denominator / 2;
+      // }
       return;
    }
 
@@ -110,8 +116,15 @@ class Fraction {
 
   method Fraction multInt(int other){
     var int newNum;
+    var Fraction toReturn;
     let newNum = numerator * other;
-    return Fraction.new(newNum, denominator);
+    let toReturn = Fraction.new(newNum, denominator);
+    return toReturn;
+  }
+
+  method void multIntThis(int other){
+    let numerator = numerator * other;
+    return;
   }
 
     method Fraction div(Fraction other){

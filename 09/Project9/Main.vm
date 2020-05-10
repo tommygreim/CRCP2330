@@ -1,11 +1,6 @@
 function Main.main 17
 call Trig.populateSine 0
 pop temp 0
-push constant 17
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
 push constant 512
 push constant 2
 call Math.divide 2
@@ -14,44 +9,32 @@ push constant 256
 push constant 2
 call Math.divide 2
 pop local 4
-push constant 25
+push constant 100
 pop local 5
-push constant 10
+push constant 2
 pop local 6
-push constant 175
-push constant 10000
-call Fraction.new 2
-pop local 14
-push constant 21
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
 push constant 0
 pop local 0
 push constant 120
 pop local 1
 push constant 240
 pop local 2
-push constant 7
-push constant 40
-call Fraction.new 2
-pop local 15
-push constant 27
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
-push constant 32
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
+push constant 0
+pop local 14
 label WHILE_EXP0
 push constant 0
 not
 not
 if-goto WHILE_END0
+push local 14
+push constant 1
+add
+pop local 14
+push local 14
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
 push local 0
 push local 6
 add
@@ -65,7 +48,7 @@ push local 6
 add
 pop local 2
 push local 0
-push constant 360
+push constant 359
 gt
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -76,7 +59,7 @@ sub
 pop local 0
 label IF_FALSE0
 push local 1
-push constant 360
+push constant 359
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -87,7 +70,7 @@ sub
 pop local 1
 label IF_FALSE1
 push local 2
-push constant 360
+push constant 359
 gt
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -97,20 +80,19 @@ push constant 360
 sub
 pop local 2
 label IF_FALSE2
-push constant 50
-call Output.printInt 1
-pop temp 0
-call Output.println 0
-pop temp 0
 push local 0
 call Trig.sine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
-call Output.println 0
-pop temp 0
 push local 16
 call Fraction.floor 1
 pop local 13
@@ -120,8 +102,14 @@ add
 pop local 7
 push local 0
 call Trig.cosine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
@@ -134,8 +122,14 @@ add
 pop local 10
 push local 1
 call Trig.sine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
@@ -148,8 +142,14 @@ add
 pop local 8
 push local 1
 call Trig.cosine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
@@ -162,8 +162,14 @@ add
 pop local 11
 push local 2
 call Trig.sine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
@@ -176,8 +182,14 @@ add
 pop local 9
 push local 2
 call Trig.cosine 1
-pop local 16
-push local 16
+pop local 15
+push local 15
+push constant 30000
+push local 5
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 15
 push local 5
 call Fraction.multInt 2
 pop local 16
@@ -206,11 +218,15 @@ push local 7
 push local 10
 call Screen.drawLine 4
 pop temp 0
-push constant 500
+push constant 16
 call Sys.wait 1
 pop temp 0
+call Screen.clearScreen 0
+pop temp 0
 push constant 0
-return
+push constant 0
+call Output.moveCursor 2
+pop temp 0
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0
