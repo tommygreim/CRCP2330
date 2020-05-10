@@ -8,6 +8,18 @@ push argument 1
 pop this 1
 push pointer 0
 return
+function Fraction.copyNew 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+call Fraction.getNumerator 1
+pop this 0
+push argument 0
+call Fraction.getDenominator 1
+pop this 1
+push pointer 0
+return
 function Fraction.reduce 1
 push argument 0
 pop pointer 0
@@ -206,8 +218,6 @@ pop local 0
 push local 0
 push this 1
 call Fraction.new 2
-pop local 1
-push local 1
 return
 function Fraction.multIntThis 0
 push argument 0
@@ -365,6 +375,10 @@ return
 function Fraction.dispose 0
 push argument 0
 pop pointer 0
+push constant 1
+pop this 0
+push constant 1
+pop this 1
 push pointer 0
 call Memory.deAlloc 1
 pop temp 0
@@ -384,8 +398,6 @@ call Output.printString 1
 pop temp 0
 push this 1
 call Output.printInt 1
-pop temp 0
-call Output.println 0
 pop temp 0
 push constant 0
 return

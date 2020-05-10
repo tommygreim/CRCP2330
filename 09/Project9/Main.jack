@@ -16,7 +16,7 @@ class Main {
   		do Trig.populateSine();
   		let centerX = 512 / 2;
   		let centerY = 256 / 2;
-  		let radius = 100;
+  		let radius = 25;
   		let deltaTheta = 2; //Change in angle per frame in degrees
 		let ang1 = 0;
 		let ang2 = 120;
@@ -24,13 +24,12 @@ class Main {
 
 		let counter = 0;
 		while(true){
-			let counter = counter + 1;
-			do Output.printInt(counter);
-			do Output.println();
+			do Main.drawTriangle(ang1, ang2, ang3, deltaTheta, radius, centerX, centerY);
+			do Sys.wait(16);
+			do Screen.clearScreen();
 			let ang1 = ang1 + deltaTheta;
 			let ang2 = ang2 + deltaTheta;
 			let ang3 = ang3 + deltaTheta;
-
 
 			if(ang1 > 359){
 				let ang1 = ang1 - 360;
@@ -41,51 +40,147 @@ class Main {
 			if(ang3 > 359){
 				let ang3 = ang3 - 360;
 			}
+			// let counter = counter + 1;
+			// do Output.printInt(counter);
+			// do Output.println();
+			// let ang1 = ang1 + deltaTheta;
+			// let ang2 = ang2 + deltaTheta;
+			// let ang3 = ang3 + deltaTheta;
 
-			let intermediate = Trig.sine(ang1);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let x1 = interInt + centerX;
 
-			let intermediate = Trig.cosine(ang1);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let y1 = interInt + centerY;
+			// if(ang1 > 359){
+			// 	let ang1 = ang1 - 360;
+			// }
+			// if(ang2 > 359){
+			// 	let ang2 = ang2 - 360;
+			// }
+			// if(ang3 > 359){
+			// 	let ang3 = ang3 - 360;
+			// }
 
-			let intermediate = Trig.sine(ang2);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let x2 = interInt + centerX;
+			// let intermediate = Trig.sine(ang1);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let x1 = interInt + centerX;
 
-			let intermediate = Trig.cosine(ang2);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let y2 = interInt + centerY;
+			// let intermediate = Trig.cosine(ang1);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let y1 = interInt + centerY;
 
-			let intermediate = Trig.sine(ang3);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let x3 = interInt + centerX;
+			// let intermediate = Trig.sine(ang2);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let x2 = interInt + centerX;
 
-			let intermediate = Trig.cosine(ang3);
-			do intermediate.lossyReduce(30000 / radius);
-			let intermediate2 = intermediate.multInt(radius);
-			let interInt = intermediate2.floor();
-			let y3 = interInt + centerY;
+			// let intermediate = Trig.cosine(ang2);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let y2 = interInt + centerY;
+
+			// let intermediate = Trig.sine(ang3);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let x3 = interInt + centerX;
+
+			// let intermediate = Trig.cosine(ang3);
+			// do intermediate.lossyReduce(30000 / radius);
+			// let intermediate2 = intermediate.multInt(radius);
+			// let interInt = intermediate2.floor();
+			// let y3 = interInt + centerY;
+
+			// do Screen.drawLine(x1, y1, x2, y2);
+			// do Screen.drawLine(x2, y2, x3, y3);
+			// do Screen.drawLine(x3, y3, x1, y1);
+			// do Sys.wait(16);
+			// do Screen.clearScreen();
+			// do Output.moveCursor(0,0);
+		}
+
+		return;
+   }
+
+   function void drawTriangle(int ang1, int ang2, int ang3, int deltaTheta, int radius, int centerX, int centerY){
+   			//Results of the sin/cos function
+   			var Fraction x1TrigRes, y1TrigRes, x2TrigRes, y2TrigRes, x3TrigRes, y3TrigRes;
+   			//Intermediary Fraction values
+   			var Fraction x1Inter, y1Inter, x2Inter, y2Inter, x3Inter, y3Inter;
+   			//Final Offsets
+   			var int x1Offset, y1Offset, x2Offset, y2Offset, x3Offset, y3Offset;
+   			//Final X and Y values;
+   			var int x1, x2, x3, y1, y2, y3;
+
+   			do Output.println();
+
+			let x1TrigRes = Trig.sine(ang1);
+			//do x1TrigRes.lossyReduce(30000 / radius);
+			let x1Inter = x1TrigRes.multInt(radius);
+			let x1Offset = x1Inter.floor();
+			let x1 = x1Offset + centerX;
+
+			let y1TrigRes = Trig.cosine(ang1);
+			//do y1TrigRes.lossyReduce(30000 / radius);
+			let y1Inter = y1TrigRes.multInt(radius);
+			let y1Offset = y1Inter.floor();
+			let y1 = y1Offset + centerY;
+
+			let x2TrigRes = Trig.sine(ang2);
+			//do x2TrigRes.lossyReduce(30000 / radius);
+			let x2Inter = x2TrigRes.multInt(radius);
+			let x2Offset = x2Inter.floor();
+			let x2 = x2Offset + centerX;
+
+			let y2TrigRes = Trig.cosine(ang2);
+			//do y2TrigRes.lossyReduce(30000 / radius);
+			let y2Inter = y2TrigRes.multInt(radius);
+			let y2Offset = y2Inter.floor();
+			let y2 = y2Offset + centerY;
+
+			let x3TrigRes = Trig.sine(ang3);
+			//do x3TrigRes.lossyReduce(30000 / radius);
+			let x3Inter = x3TrigRes.multInt(radius);
+			let x3Offset = x3Inter.floor();
+			let x3 = x3Offset + centerX;
+
+			let y3TrigRes = Trig.cosine(ang3);
+			//do y3TrigRes.lossyReduce(30000 / radius);
+			let y3Inter = y3TrigRes.multInt(radius);
+			let y3Offset = y3Inter.floor();
+			let y3 = y3Offset + centerY;
+
+			do Output.println();
+			// do x1Inter.print(); do Output.printString(", Trig Res: "); do x1TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
+			// do y1Inter.print(); do Output.printString(", Trig Res: "); do y1TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
+			// do x2Inter.print(); do Output.printString(", Trig Res: "); do x2TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
+			// do y2Inter.print(); do Output.printString(", Trig Res: "); do y2TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
+			// do x3Inter.print(); do Output.printString(", Trig Res: "); do x3TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius);
+			do Output.println();
+			do y3Inter.print(); do Output.printString(", Trig Res: "); do y3TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
+			do Output.moveCursor(0,0);
 
 			do Screen.drawLine(x1, y1, x2, y2);
 			do Screen.drawLine(x2, y2, x3, y3);
 			do Screen.drawLine(x3, y3, x1, y1);
-			do Sys.wait(16);
-			do Screen.clearScreen();
-			do Output.moveCursor(0,0);
-		}
 
-		return;
+
+			do x1TrigRes.dispose();
+			do y1TrigRes.dispose();
+			do x2TrigRes.dispose();
+			do y2TrigRes.dispose();
+			do x3TrigRes.dispose();
+			do y3TrigRes.dispose();
+			do x1Inter.dispose();
+			do y1Inter.dispose();
+			do x2Inter.dispose();
+			do y2Inter.dispose();
+			do x3Inter.dispose();
+			do y3Inter.dispose();
+
+   		return;
    }
 }

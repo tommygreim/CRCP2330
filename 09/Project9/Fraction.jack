@@ -15,6 +15,12 @@ class Fraction {
       return this;   // a constructor is expected to return a reference to the new object
    }
 
+   constructor Fraction copyNew(Fraction other){
+      let numerator = other.getNumerator();
+      let denominator = other.getDenominator();
+      return this;
+   }
+
    // Reduces this fraction.
    method void reduce() {
       var int g;
@@ -25,6 +31,7 @@ class Fraction {
       }
       return;
    }
+
 
    //Reduces this fraction to avoid overflow. Introduces imprecision
    method void lossyReduce(int limit) {
@@ -118,8 +125,7 @@ class Fraction {
     var int newNum;
     var Fraction toReturn;
     let newNum = numerator * other;
-    let toReturn = Fraction.new(newNum, denominator);
-    return toReturn;
+    return Fraction.new(newNum, denominator);
   }
 
   method void multIntThis(int other){
@@ -192,6 +198,8 @@ class Fraction {
 
    /** Disposes this fraction. */
    method void dispose() {
+      let numerator = 1;
+      let denominator = 1;
       do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
       return;
    }
@@ -201,7 +209,7 @@ class Fraction {
       do Output.printInt(numerator);
       do Output.printString("/");
       do Output.printInt(denominator);
-      do Output.println();
+      //do Output.println();
       return;
    }
 
