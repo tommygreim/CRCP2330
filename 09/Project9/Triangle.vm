@@ -1,0 +1,378 @@
+function Triangle.new 0
+push constant 13
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 5
+push argument 1
+pop this 6
+push argument 2
+pop this 4
+push constant 180
+push argument 3
+add
+pop this 0
+push constant 300
+push argument 3
+add
+pop this 1
+push constant 60
+push argument 3
+add
+pop this 2
+label WHILE_EXP0
+push this 0
+push constant 359
+gt
+not
+if-goto WHILE_END0
+push this 0
+push constant 360
+sub
+pop this 0
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push this 1
+push constant 359
+gt
+not
+if-goto WHILE_END1
+push this 1
+push constant 360
+sub
+pop this 1
+goto WHILE_EXP1
+label WHILE_END1
+label WHILE_EXP2
+push this 2
+push constant 359
+gt
+not
+if-goto WHILE_END2
+push this 2
+push constant 360
+sub
+pop this 2
+goto WHILE_EXP2
+label WHILE_END2
+label WHILE_EXP3
+push this 0
+push constant 0
+lt
+not
+if-goto WHILE_END3
+push this 0
+push constant 360
+add
+pop this 0
+goto WHILE_EXP3
+label WHILE_END3
+label WHILE_EXP4
+push this 1
+push constant 0
+lt
+not
+if-goto WHILE_END4
+push this 1
+push constant 360
+add
+pop this 1
+goto WHILE_EXP4
+label WHILE_END4
+label WHILE_EXP5
+push this 2
+push constant 0
+lt
+not
+if-goto WHILE_END5
+push this 2
+push constant 360
+add
+pop this 2
+goto WHILE_EXP5
+label WHILE_END5
+push argument 4
+pop this 3
+push pointer 0
+return
+function Triangle.calcCoords 18
+push argument 0
+pop pointer 0
+push this 0
+push this 3
+add
+pop this 0
+push this 1
+push this 3
+add
+pop this 1
+push this 2
+push this 3
+add
+pop this 2
+label WHILE_EXP0
+push this 0
+push constant 359
+gt
+not
+if-goto WHILE_END0
+push this 0
+push constant 360
+sub
+pop this 0
+goto WHILE_EXP0
+label WHILE_END0
+label WHILE_EXP1
+push this 1
+push constant 359
+gt
+not
+if-goto WHILE_END1
+push this 1
+push constant 360
+sub
+pop this 1
+goto WHILE_EXP1
+label WHILE_END1
+label WHILE_EXP2
+push this 2
+push constant 359
+gt
+not
+if-goto WHILE_END2
+push this 2
+push constant 360
+sub
+pop this 2
+goto WHILE_EXP2
+label WHILE_END2
+label WHILE_EXP3
+push this 0
+push constant 0
+lt
+not
+if-goto WHILE_END3
+push this 0
+push constant 360
+add
+pop this 0
+goto WHILE_EXP3
+label WHILE_END3
+label WHILE_EXP4
+push this 1
+push constant 0
+lt
+not
+if-goto WHILE_END4
+push this 1
+push constant 360
+add
+pop this 1
+goto WHILE_EXP4
+label WHILE_END4
+label WHILE_EXP5
+push this 2
+push constant 0
+lt
+not
+if-goto WHILE_END5
+push this 2
+push constant 360
+add
+pop this 2
+goto WHILE_EXP5
+label WHILE_END5
+push this 0
+call Trig.sine 1
+pop local 0
+push local 0
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 0
+push this 4
+call Fraction.multInt 2
+pop local 6
+push local 6
+call Fraction.floor 1
+pop local 12
+push local 12
+push this 5
+add
+pop this 7
+push this 0
+call Trig.cosine 1
+pop local 1
+push local 1
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 1
+push this 4
+call Fraction.multInt 2
+pop local 7
+push local 7
+call Fraction.floor 1
+pop local 13
+push local 13
+push this 6
+add
+pop this 10
+push this 1
+call Trig.sine 1
+pop local 2
+push local 2
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 2
+push this 4
+call Fraction.multInt 2
+pop local 8
+push local 8
+call Fraction.floor 1
+pop local 14
+push local 14
+push this 5
+add
+pop this 8
+push this 1
+call Trig.cosine 1
+pop local 3
+push local 3
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 3
+push this 4
+call Fraction.multInt 2
+pop local 9
+push local 9
+call Fraction.floor 1
+pop local 15
+push local 15
+push this 6
+add
+pop this 11
+push this 2
+call Trig.sine 1
+pop local 4
+push local 4
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 4
+push this 4
+call Fraction.multInt 2
+pop local 10
+push local 10
+call Fraction.floor 1
+pop local 16
+push local 16
+push this 5
+add
+pop this 9
+push this 2
+call Trig.cosine 1
+pop local 5
+push local 5
+push constant 30000
+push this 4
+call Math.divide 2
+call Fraction.lossyReduce 2
+pop temp 0
+push local 5
+push this 4
+call Fraction.multInt 2
+pop local 11
+push local 11
+call Fraction.floor 1
+pop local 17
+push local 17
+push this 6
+add
+pop this 12
+push local 0
+call Fraction.dispose 1
+pop temp 0
+push local 1
+call Fraction.dispose 1
+pop temp 0
+push local 2
+call Fraction.dispose 1
+pop temp 0
+push local 3
+call Fraction.dispose 1
+pop temp 0
+push local 4
+call Fraction.dispose 1
+pop temp 0
+push local 5
+call Fraction.dispose 1
+pop temp 0
+push local 6
+call Fraction.dispose 1
+pop temp 0
+push local 7
+call Fraction.dispose 1
+pop temp 0
+push local 8
+call Fraction.dispose 1
+pop temp 0
+push local 9
+call Fraction.dispose 1
+pop temp 0
+push local 10
+call Fraction.dispose 1
+pop temp 0
+push local 11
+call Fraction.dispose 1
+pop temp 0
+push constant 0
+return
+function Triangle.draw 0
+push argument 0
+pop pointer 0
+push this 3
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push this 7
+push this 10
+push this 8
+push this 11
+call Screen.drawLine 4
+pop temp 0
+push this 8
+push this 11
+push this 9
+push this 12
+call Screen.drawLine 4
+pop temp 0
+push this 9
+push this 12
+push this 7
+push this 10
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
+function Triangle.setDeltaTheta 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 3
+push constant 0
+return
