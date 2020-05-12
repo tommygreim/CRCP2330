@@ -157,21 +157,6 @@ push pointer 0
 push local 0
 call Fraction.plus 2
 return
-function Fraction.bigPlus 1
-push argument 0
-pop pointer 0
-push this 0
-push constant 2
-call Math.divide 2
-push this 1
-push constant 2
-call Math.divide 2
-call Fraction.new 2
-pop local 0
-push local 0
-push argument 1
-call Fraction.plus 2
-return
 function Fraction.isGTE 3
 push argument 0
 pop pointer 0

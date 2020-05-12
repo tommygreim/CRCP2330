@@ -1,19 +1,42 @@
 //		Tommy Greim
 //		Nand2Tetris: Project 9
+//		A Recreation of the ship from the game ASTEROIDS.
+
 class Main {
    function void main() {
-  		var int drawCounter;
+  		var int drawCounter, currentKey;
+  		var boolean showShip;
   		var Triangle mainTri, leftTri, rightTri;
   		do Trig.populateSine();
 
-		let mainTri = Triangle.new(512 / 2, 256 / 2, 10, 0, 600);
+		let mainTri = Triangle.new(512 / 2, 256 / 2, 15, 0, 600);
 		let drawCounter = 0;
+		let showShip = false;
+
+		do Output.printString("Asteroids Ship by Tommy Greim");
+		do Output.println();
+		do Output.printString("LEFT / RIGHT to rotate");
+		do Output.println();
+		do Output.printString("UP to accelerate");
+		do Output.println();
+		do Output.printString("Press SPACE to hide this.");
+
+		while(~showShip){
+			do Sys.wait(33);
+			let currentKey = Keyboard.keyPressed();
+			if(currentKey = 32){
+				let showShip = true;
+			}
+		}
+
 		while(true){
 			let drawCounter = drawCounter + 1;
 			do mainTri.calcAngSpeed(drawCounter);
 			do mainTri.calcLinSpeed(drawCounter);
 			do mainTri.calcCoords();
 			do Screen.clearScreen();
+			do Output.println();
+			do Output.moveCursor(0,0);
 			do mainTri.draw();
 			do Sys.wait(33);
 

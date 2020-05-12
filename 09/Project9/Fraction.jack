@@ -5,24 +5,24 @@
 
 /** Represents the Fraction type and related operations. */
 class Fraction {
-   field int numerator, denominator;  // field = property = member variable.
-  
-   /** Constructs a (reduced) fraction from the given numerator and denominator. */
-   constructor Fraction new(int x, int y) {
+    field int numerator, denominator;  // field = property = member variable.
+
+    /** Constructs a (reduced) fraction from the given numerator and denominator. */
+    constructor Fraction new(int x, int y) {
       let numerator = x;
       let denominator = y;
       //do reduce();   // reduces the fraction
       return this;   // a constructor is expected to return a reference to the new object
-   }
+    }
 
-   constructor Fraction copyNew(Fraction other){
+    constructor Fraction copyNew(Fraction other){
       let numerator = other.getNumerator();
       let denominator = other.getDenominator();
       return this;
-   }
+    }
 
-   // Reduces this fraction.
-   method void reduce() {
+    // Reduces this fraction.
+    method void reduce() {
       var int g;
       let g = Fraction.gcd(numerator, denominator);
       if (g > 1) {
@@ -30,11 +30,11 @@ class Fraction {
          let denominator = denominator / g;
       }
       return;
-   }
+    }
 
 
-   //Reduces this fraction to avoid overflow. Introduces imprecision
-   method void lossyReduce(int limit) {
+    //Reduces this fraction to avoid overflow. Introduces imprecision
+    method void lossyReduce(int limit) {
       while(numerator > limit){
           if(denominator / 2 = 0){
             return;
@@ -57,14 +57,14 @@ class Fraction {
       //     let denominator = denominator / 2;
       // }
       return;
-   }
+    }
 
     /** Accessors. */
-   method int getNumerator() { return numerator; }
-   method int getDenominator() { return denominator; }
+    method int getNumerator() { return numerator; }
+    method int getDenominator() { return denominator; }
 
-   /** Returns the sum of this fraction and the other one. */
-   method Fraction plus(Fraction other) {
+    /** Returns the sum of this fraction and the other one. */
+    method Fraction plus(Fraction other) {
     var Fraction toReturn;
       var int num, denom;
       do reduce();
@@ -74,25 +74,19 @@ class Fraction {
       //let sum = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
       let toReturn = Fraction.new(num, denom);
       return toReturn;
-   }
+    }
 
-   method Fraction plusInt(int other){
+    //Adds an integer to the fraction
+    method Fraction plusInt(int other){
       var Fraction intToFrac;
       let intToFrac = Fraction.new(other, 1);
       return plus(intToFrac);
-   }
+    }
 
-   //A more impercise version of plus for values that approach the 16 bit limit
-   method Fraction bigPlus(Fraction other){
-      var Fraction reduced;
-      let reduced = Fraction.new(numerator / 2, denominator / 2);
-      return reduced.plus(other);
-   }
+    //Comparison Operators
 
-   //Comparison Operators
-
-   //Returns true if greater than or equal to
-   method boolean isGTE(Fraction other){
+    //Returns true if greater than or equal to
+    method boolean isGTE(Fraction other){
       var boolean toReturn;
       var int thisProduct, otherProduct;
       let thisProduct = numerator * other.getDenominator();
@@ -101,52 +95,52 @@ class Fraction {
         return true;
       }
       return false;
-   }
+    }
 
-   // More fraction-related methods (minus, times, div, etc.) can be added here.
-  
-  method Fraction mult(Fraction other){
+    // More fraction-related methods (minus, times, div, etc.) can be added here.
+
+    method Fraction mult(Fraction other){
     var Fraction toReturn;
-  	var int newNum;
-  	var int newDenom;
+    var int newNum;
+    var int newDenom;
     // do lossyReduce(2);
     // do other.lossyReduce(2);
-  	let newNum = numerator * other.getNumerator();
-  	let newDenom = denominator * other.getDenominator();
-  	let toReturn = Fraction.new(newNum, newDenom);
+    let newNum = numerator * other.getNumerator();
+    let newDenom = denominator * other.getDenominator();
+    let toReturn = Fraction.new(newNum, newDenom);
     //do toReturn.lossyReduce(2);
     return toReturn;
-  }
+    }
 
-  method Fraction multInt(int other){
+    method Fraction multInt(int other){
     return Fraction.new(numerator * other, denominator);
-  }
+    }
 
-  method void multIntThis(int other){
+    method void multIntThis(int other){
     let numerator = numerator * other;
     return;
-  }
+    }
 
     method Fraction div(Fraction other){
     var Fraction multInv, toReturn;
     let multInv = Fraction.new(other.getDenominator(), other.getNumerator());
     let toReturn = mult(multInv);
     return toReturn;
-  }
+    }
 
-  method int floor(){
+    method int floor(){
     return numerator / denominator;
-  }
+    }
 
-  //Gets the additive inverse of this fraction
-  method Fraction addInv(){
+    //Gets the additive inverse of this fraction
+    method Fraction addInv(){
     var Fraction negOne;
     let negOne = Fraction.new(-1, 1);
     return mult(negOne);
-  }
+    }
 
-  //Approximations of Trig Functions
-  method Fraction sinOfThis(){
+    //Approximations of Trig Functions
+    method Fraction sinOfThis(){
     var Fraction invTwoPi, oneHalf, d, toReturn, intermediate;
     var int interInt;
     let invTwoPi = Fraction.new(50, 314);
@@ -175,9 +169,9 @@ class Fraction {
     }
     //do toReturn.reduce();
     return toReturn;
-  }
+    }
 
-  method Fraction cosOfThis(){
+    method Fraction cosOfThis(){
     var Fraction intermediate, toReturn;
     let intermediate = Fraction.new(314, 200);
     // do intermediate.print();
@@ -186,32 +180,32 @@ class Fraction {
     // do intermediate.print();
     let toReturn = intermediate.sinOfThis();
     return toReturn;
-  }
+    }
 
-   /** Disposes this fraction. */
-   method void dispose() {
+    /** Disposes this fraction. */
+    method void dispose() {
       let numerator = 1;
       let denominator = 1;
       do Memory.deAlloc(this);  // uses an OS routine to recycle the memory held by the object
       return;
-   }
-   
-   /** Prints this fraction in the format x/y. */
-   method void print() {
+    }
+
+    /** Prints this fraction in the format x/y. */
+    method void print() {
       do Output.printInt(numerator);
       do Output.printString("/");
       do Output.printInt(denominator);
       //do Output.println();
       return;
-   }
+    }
 
       // Computes the greatest common divisor of the given integers.
-   function int gcd(int a, int b) {
+    function int gcd(int a, int b) {
       var int r;
       while (~(b = 0)) {             // applies Euclid's algorithm
          let r = a - (b * (a / b));  // r = remainder of the integer division a/b
          let a = b; let b = r;
       }
       return a;
-   }
+    }
 }

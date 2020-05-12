@@ -373,6 +373,7 @@ class Trig {
 
 	function Fraction cosine(int deg){
 		let deg = deg + 90;
+		//Prevents degree from exceeding 359
 		if(deg > 360){
 			let deg = deg - 360;
 		}
@@ -385,6 +386,7 @@ class Trig {
 
 }
 
+//CODE USED TO GENERATE THE SIN VALUES
 // #include <iostream>
 // #include <math.h>
 

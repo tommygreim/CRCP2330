@@ -71,7 +71,10 @@ class Triangle{
 		var Fraction deltaYSpeed, deltaXSpeed, absSpeed;
 
 		let currentKey = Keyboard.keyPressed();
+
+		//If the up key is pressed
 		if(currentKey = 131){
+			//Change the x and y speed depending on the angle of the triangle
 			let absSpeed = Fraction.new(2, 1);
 			let deltaXSpeed = Trig.cosine(ang2);
 			let deltaYSpeed = Trig.sine(ang2);
@@ -84,6 +87,7 @@ class Triangle{
 		let centerX = centerX + xSpeed;
 		let centerY = centerY + ySpeed;
 
+		//Makes sure the triangle doesn't go out of bounds
 		if(centerX > (512 - radius)){
 			let centerX = 512 - radius;
 			let xSpeed = 0;
@@ -135,7 +139,9 @@ class Triangle{
 			let ang3 = ang3 + 360;
 		}
 
+		//Calculate the location of the points based on the angles and the radius
 		let x1TrigRes = Trig.cosine(ang1);
+		//Decreases accuracy, but necessary to prevent the the fractions from overflowing
 		do x1TrigRes.lossyReduce(30000 / radius);
 		let x1Inter = x1TrigRes.multInt(radius);
 		let x1Offset = x1Inter.floor();
@@ -188,8 +194,7 @@ class Triangle{
 	}
 
 	method void draw(){
-		//do Output.printInt(deltaTheta); do Output.println();
-		do Output.println(); do Output.printInt(ang1); do Output.println();
+		do Screen.setColor(true);
 		do Screen.drawLine(x1, y1, x2, y2);
 		do Screen.drawLine(x2, y2, x3, y3);
 		do Screen.drawLine(x3, y3, x1, y1);
