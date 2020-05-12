@@ -7,33 +7,11 @@ call Math.divide 2
 push constant 256
 push constant 2
 call Math.divide 2
-push constant 100
+push constant 10
 push constant 0
-push constant 8
+push constant 600
 call Triangle.new 5
 pop local 3
-push constant 512
-push constant 2
-call Math.divide 2
-push constant 256
-push constant 2
-call Math.divide 2
-push constant 50
-push constant 180
-push constant 8
-call Triangle.new 5
-pop local 4
-push constant 512
-push constant 2
-call Math.divide 2
-push constant 256
-push constant 2
-call Math.divide 2
-push constant 25
-push constant 0
-push constant 8
-call Triangle.new 5
-pop local 5
 push constant 0
 pop local 1
 push constant 0
@@ -47,138 +25,20 @@ push local 2
 push constant 1
 add
 pop local 2
-push local 1
-push constant 0
-lt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
-push local 2
-push constant 4
-call Main.mod 2
-push constant 0
-eq
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-push local 1
-push constant 1
-add
-pop local 1
-label IF_FALSE1
-label IF_FALSE0
-push local 1
-push constant 0
-gt
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
-push local 2
-push constant 4
-call Main.mod 2
-push constant 0
-eq
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
-push local 1
-push constant 1
-sub
-pop local 1
-label IF_FALSE3
-label IF_FALSE2
-call Keyboard.keyPressed 0
-pop local 0
-push local 0
-push constant 130
-eq
-if-goto IF_TRUE4
-goto IF_FALSE4
-label IF_TRUE4
-push local 2
-push constant 2
-call Main.mod 2
-push constant 0
-eq
-if-goto IF_TRUE5
-goto IF_FALSE5
-label IF_TRUE5
-push local 1
-push constant 1
-add
-pop local 1
-label IF_FALSE5
-label IF_FALSE4
-push local 0
-push constant 132
-eq
-if-goto IF_TRUE6
-goto IF_FALSE6
-label IF_TRUE6
-push local 2
-push constant 2
-call Main.mod 2
-push constant 0
-eq
-if-goto IF_TRUE7
-goto IF_FALSE7
-label IF_TRUE7
-push local 1
-push constant 1
-sub
-pop local 1
-label IF_FALSE7
-label IF_FALSE6
-push local 1
-push constant 90
-gt
-if-goto IF_TRUE8
-goto IF_FALSE8
-label IF_TRUE8
-push constant 90
-pop local 1
-label IF_FALSE8
-push local 1
-push constant 90
-neg
-lt
-if-goto IF_TRUE9
-goto IF_FALSE9
-label IF_TRUE9
-push constant 90
-neg
-pop local 1
-label IF_FALSE9
 push local 3
-push local 1
-call Triangle.setDeltaTheta 2
-pop temp 0
-push local 4
-push local 1
-call Triangle.setDeltaTheta 2
-pop temp 0
-push local 5
-push local 1
-call Triangle.setDeltaTheta 2
+push local 2
+call Triangle.calcAngSpeed 2
 pop temp 0
 push local 3
-call Triangle.calcCoords 1
+push local 2
+call Triangle.calcLinSpeed 2
 pop temp 0
-push local 4
-call Triangle.calcCoords 1
-pop temp 0
-push local 5
+push local 3
 call Triangle.calcCoords 1
 pop temp 0
 call Screen.clearScreen 0
 pop temp 0
 push local 3
-call Triangle.draw 1
-pop temp 0
-push local 4
-call Triangle.draw 1
-pop temp 0
-push local 5
 call Triangle.draw 1
 pop temp 0
 push constant 0

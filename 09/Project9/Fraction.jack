@@ -66,16 +66,13 @@ class Fraction {
    /** Returns the sum of this fraction and the other one. */
    method Fraction plus(Fraction other) {
     var Fraction toReturn;
-      var int sum;
-      // do lossyReduce(2);
-      // do other.lossyReduce(2);
-      // do Output.println();
-      // do print();
-      // do other.print();
-      // do Output.println();
-      let sum = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
-      let toReturn = Fraction.new(sum, denominator * other.getDenominator());
-      // do toReturn.lossyReduce(2);
+      var int num, denom;
+      do reduce();
+      do other.reduce();
+      let num = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
+      let denom = denominator * other.getDenominator();
+      //let sum = (numerator * other.getDenominator()) + (other.getNumerator() * denominator);
+      let toReturn = Fraction.new(num, denom);
       return toReturn;
    }
 
@@ -138,7 +135,7 @@ class Fraction {
   }
 
   method int floor(){
-  	return numerator / denominator;
+    return numerator / denominator;
   }
 
   //Gets the additive inverse of this fraction

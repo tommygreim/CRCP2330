@@ -1,15 +1,16 @@
 
 class Triangle{
-	field int ang1, ang2, ang3, deltaTheta, radius, centerX, centerY, x1, x2, x3, y1, y2, y3;
+	field int ang1, ang2, ang3, deltaTheta, radius, centerX, centerY, x1, x2, x3, y1, y2, y3, currentAngSpeed, xSpeed, ySpeed;
 
 	constructor Triangle new(int newCenterX, int newCenterY, int newRadius, int angOffset, int newDeltaTheta){
 		let centerX = newCenterX;
 		let centerY = newCenterY;
 		let radius = newRadius;
-		let ang1 = 180 + angOffset;
-		let ang2 = 300 + angOffset;
-		let ang3 = 60 + angOffset;
+		let ang1 = 270 + angOffset;
+		let ang2 = 30 + angOffset;
+		let ang3 = 150 + angOffset;
 
+		//The sine and cosine functions in trig only allow degree values between 0 and 359
 		while(ang1 > 359){
 			let ang1 = ang1 - 360;
 		}
@@ -31,8 +32,75 @@ class Triangle{
 		}
 
 		let deltaTheta = newDeltaTheta;
-
+		let currentAngSpeed = 0;
+		let xSpeed = 0;
+		let ySpeed = 0;
 		return this; 
+	}
+
+	method void calcAngSpeed(int drawCounter){
+			var int currentKey;
+			let currentAngSpeed = 0;
+			let currentKey = Keyboard.keyPressed();
+
+			//If left arrow is pressed
+			if(currentKey = 130){
+					let currentAngSpeed = currentAngSpeed + 8;
+			}
+
+			//If right key is pressed
+			if(currentKey = 132){
+					let currentAngSpeed = currentAngSpeed - 8;
+			}
+
+			//Prevents the triangle from being rotated too fast.
+			if(currentAngSpeed > 45){
+				let currentAngSpeed = 45;
+			}
+			if(currentAngSpeed < -45){
+				let currentAngSpeed = -45;
+			}
+
+			let deltaTheta = currentAngSpeed;
+
+		return;
+	}
+
+	method void calcLinSpeed(int drawCounter){
+		var int currentKey;
+		var Fraction deltaYSpeed, deltaXSpeed, absSpeed;
+
+		let currentKey = Keyboard.keyPressed();
+		if(currentKey = 131){
+			let absSpeed = Fraction.new(2, 1);
+			let deltaXSpeed = Trig.cosine(ang2);
+			let deltaYSpeed = Trig.sine(ang2);
+			let deltaXSpeed = deltaXSpeed.mult(absSpeed);
+			let deltaYSpeed = deltaYSpeed.mult(absSpeed);
+			let xSpeed = xSpeed + deltaXSpeed.floor();
+			let ySpeed = ySpeed + deltaYSpeed.floor();
+		}
+
+		let centerX = centerX + xSpeed;
+		let centerY = centerY + ySpeed;
+
+		if(centerX > (512 - radius)){
+			let centerX = 512 - radius;
+			let xSpeed = 0;
+		}
+		if(centerY > (256 - radius)){
+			let centerY = 256 - radius;
+			let ySpeed = 0;
+		}
+		if(centerX < (0 + radius)){
+			let centerX = 0 + radius;
+			let xSpeed = 0;
+		}
+		if(centerY < (0 + radius)){
+			let centerY = 0 + radius;
+			let ySpeed = 0;
+		}
+		return;
 	}
 
 	method void calcCoords(){
@@ -67,55 +135,41 @@ class Triangle{
 			let ang3 = ang3 + 360;
 		}
 
-		let x1TrigRes = Trig.sine(ang1);
+		let x1TrigRes = Trig.cosine(ang1);
 		do x1TrigRes.lossyReduce(30000 / radius);
 		let x1Inter = x1TrigRes.multInt(radius);
 		let x1Offset = x1Inter.floor();
 		let x1 = x1Offset + centerX;
 
-		let y1TrigRes = Trig.cosine(ang1);
+		let y1TrigRes = Trig.sine(ang1);
 		do y1TrigRes.lossyReduce(30000 / radius);
 		let y1Inter = y1TrigRes.multInt(radius);
 		let y1Offset = y1Inter.floor();
 		let y1 = y1Offset + centerY;
 
-		let x2TrigRes = Trig.sine(ang2);
+		let x2TrigRes = Trig.cosine(ang2);
 		do x2TrigRes.lossyReduce(30000 / radius);
 		let x2Inter = x2TrigRes.multInt(radius);
 		let x2Offset = x2Inter.floor();
 		let x2 = x2Offset + centerX;
 
-		let y2TrigRes = Trig.cosine(ang2);
+		let y2TrigRes = Trig.sine(ang2);
 		do y2TrigRes.lossyReduce(30000 / radius);
 		let y2Inter = y2TrigRes.multInt(radius);
 		let y2Offset = y2Inter.floor();
 		let y2 = y2Offset + centerY;
 
-		let x3TrigRes = Trig.sine(ang3);
+		let x3TrigRes = Trig.cosine(ang3);
 		do x3TrigRes.lossyReduce(30000 / radius);
 		let x3Inter = x3TrigRes.multInt(radius);
 		let x3Offset = x3Inter.floor();
 		let x3 = x3Offset + centerX;
 
-		let y3TrigRes = Trig.cosine(ang3);
+		let y3TrigRes = Trig.sine(ang3);
 		do y3TrigRes.lossyReduce(30000 / radius);
 		let y3Inter = y3TrigRes.multInt(radius);
 		let y3Offset = y3Inter.floor();
 		let y3 = y3Offset + centerY;
-
-		// do x1Inter.print(); do Output.printString(", Trig Res: "); do x1TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
-		// do y1Inter.print(); do Output.printString(", Trig Res: "); do y1TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
-		// do x2Inter.print(); do Output.printString(", Trig Res: "); do x2TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
-		// do y2Inter.print(); do Output.printString(", Trig Res: "); do y2TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
-		// do x3Inter.print(); do Output.printString(", Trig Res: "); do x3TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius);
-		// do Output.println();
-		// do y3Inter.print(); do Output.printString(", Trig Res: "); do y3TrigRes.print(); do Output.printString(", Radius: "); do Output.printInt(radius); do Output.println();
-		// do Output.moveCursor(0,0);
-		// do Screen.clearScreen();
-		// do Screen.drawLine(x1, y1, x2, y2);
-		// do Screen.drawLine(x2, y2, x3, y3);
-		// do Screen.drawLine(x3, y3, x1, y1);
-
 
 		do x1TrigRes.dispose();
 		do y1TrigRes.dispose();
@@ -134,7 +188,8 @@ class Triangle{
 	}
 
 	method void draw(){
-		do Output.printInt(deltaTheta); do Output.println();
+		//do Output.printInt(deltaTheta); do Output.println();
+		do Output.println(); do Output.printInt(ang1); do Output.println();
 		do Screen.drawLine(x1, y1, x2, y2);
 		do Screen.drawLine(x2, y2, x3, y3);
 		do Screen.drawLine(x3, y3, x1, y1);
